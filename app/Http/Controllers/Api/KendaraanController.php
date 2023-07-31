@@ -20,26 +20,8 @@ class KendaraanController extends ApiController
      */
     public function index(Request $request): JsonResponse
     {
-        $per_page = $request->query('size', 10);
-        $sort = $request->query('sort');
-        $filter = $request->query('filter');
-        $data = Kendaraan::with(['jenisKendaraan','ruteKendaraan']);
-        if($filter) {
-            foreach($filter as $fn){
-                if($fn['value']) {
-                    $fn['value'] = $fn['type'] == "like" ? '%'.$fn['value'].'%' : $fn['value'];
-                    $data = $data->where($fn['field'], $fn['type'], $fn['value']);
-                }
-            }
-        }
-        if($sort) {
-            foreach($sort as $fn){
-                $data = $data->orderBy($fn['field'], $fn['dir']);
-            }
-        } else {
-            $data = $data->latest('updated_at');
-        }
-        $data = $data->paginate($per_page);
+        $perPage = $request->query('size', 10);
+        $data = Kendaraan::with(['jenisKendaraan','ruteKendaraan'])->filter()->paginate($perPage);
         return $this->sendResponse(new KendaraanCollection($data), 'Data retrieved successfully.');
     }
 
