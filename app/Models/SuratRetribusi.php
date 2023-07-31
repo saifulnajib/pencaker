@@ -20,7 +20,7 @@ class SuratRetribusi extends Model
     // protected $keyType      = 'string';
     // public $incrementing    = false;
     protected $fillable = [
-        'nama_usaha', 'jenis_usaha',
+        'nama_pemohon', 'nama_usaha', 'jenis_usaha',
         'alamat_usaha', 'nomor_telpon',
         'tarif_retribusi', 'keterangan'
     ];
