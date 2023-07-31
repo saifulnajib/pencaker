@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\KendaraanResource;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Resources\KendaraanCollection;
+use App\Http\Resources\Base\BaseCollection;
 
 class KendaraanController extends ApiController
 {
@@ -22,7 +22,7 @@ class KendaraanController extends ApiController
     {
         $perPage = $request->query('size', 10);
         $data = Kendaraan::with(['jenisKendaraan','ruteKendaraan'])->filter()->paginate($perPage);
-        return $this->sendResponse(new KendaraanCollection($data), 'Data retrieved successfully.');
+        return $this->sendResponse(new BaseCollection($data, KendaraanResource::class), 'Data retrieved successfully.');
     }
 
     /**

@@ -8,8 +8,8 @@ use App\Models\Sampah;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\SampahResource;
-use App\Http\Resources\SampahCollection;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Resources\Base\BaseCollection;
 
 class SampahController extends ApiController
 {
@@ -22,7 +22,7 @@ class SampahController extends ApiController
     {
         $perPage = $request->query('size', 10);
         $data = Sampah::with(['jenisSampah','kendaraan'])->filter()->paginate($perPage);
-        return $this->sendResponse(new SampahCollection($data), 'Data retrieved successfully.');
+        return $this->sendResponse(new BaseCollection($data, SampahResource::class), 'Data retrieved successfully.');
     }
 
     /**

@@ -7,8 +7,8 @@ use App\Models\JenisSampah;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\JenisSampahResource;
-use App\Http\Resources\JenisSampahCollection;
 
 class JenisSampahController extends ApiController
 {
@@ -21,7 +21,7 @@ class JenisSampahController extends ApiController
     {
         $perPage = request()->query('size', 10);
         $data = JenisSampah::filter()->paginate($perPage);
-        return $this->sendResponse(new JenisSampahCollection($data), 'Data retrieved successfully.');
+        return $this->sendResponse(new BaseCollection($data, JenisSampahResource::class), 'Data retrieved successfully.');
     }
 
     /**

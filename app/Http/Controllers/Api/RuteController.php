@@ -7,8 +7,8 @@ use App\Models\Rute;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\RuteResource;
-use App\Http\Resources\RuteCollection;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Resources\Base\BaseCollection;
 
 class RuteController extends ApiController
 {
@@ -21,7 +21,7 @@ class RuteController extends ApiController
     {
         $perPage = $request->query('size', 10);
         $data = Rute::filter()->paginate($perPage);
-        return $this->sendResponse(new RuteCollection($data), 'Data retrieved successfully.');
+        return $this->sendResponse(new BaseCollection($data, RuteResource::class), 'Data retrieved successfully.');
     }
 
     /**
