@@ -24,6 +24,13 @@ class KategoriPenyedotanController extends ApiController
         return $this->sendResponse(new BaseCollection($data, KategoriPenyedotanResource::class), 'Data retrieved successfully.');
     }
 
+
+    public function option(Request $request): JsonResponse
+    {
+        $data = KategoriPenyedotan::select('id', 'kategori as name')->where('is_active', 1)->latest('updated_at')->get();
+        return $this->sendResponse($data, 'Data retrieved successfully.');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

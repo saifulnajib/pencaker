@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\JenisSampahController;
 use App\Http\Controllers\Api\JenisKendaraanController;
 use App\Http\Controllers\Api\KategoriPenyedotanController;
 use App\Http\Controllers\Api\SuratRetribusiController;
+use App\Http\Controllers\Api\PenyedotanTinjaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
     Route::get('option/jenis-kendaraan', [JenisKendaraanController::class, 'option']);
     Route::apiResource('kategori-penyedotan', KategoriPenyedotanController::class);
+    Route::get('option/kategori-penyedotan', [KategoriPenyedotanController::class, 'option']);
     Route::apiResource('rute', RuteController::class);
     Route::get('option/rute', [RuteController::class, 'option']);
     Route::apiResource('kendaraan', KendaraanController::class);
@@ -45,4 +47,5 @@ Route::middleware('auth.jwt')->group( function () {
     Route::get('option/jenis-sampah', [JenisSampahController::class, 'option']);
     Route::apiResource('sampah', SampahController::class);
     Route::apiResource('surat-retribusi', SuratRetribusiController::class);
+    Route::apiResource('penyedotan-tinja', PenyedotanTinjaController::class);
 });

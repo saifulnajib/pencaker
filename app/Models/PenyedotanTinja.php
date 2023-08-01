@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\DataGridScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
