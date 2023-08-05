@@ -22,7 +22,8 @@ class SuratRetribusiResource extends JsonResource
             'alamat_usaha' =>$this->alamat_usaha,
             'nomor_telpon' =>$this->nomor_telpon,
             'tarif_retribusi' =>$this->tarif_retribusi,
-            'created_id' =>$this->created_id,
+            'keterangan' =>$this->keterangan,
+            'created_at' =>$this->created_at,
             'updated_at' =>$this->updated_at,
 
         ];
