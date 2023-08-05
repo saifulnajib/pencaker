@@ -30,7 +30,7 @@ class PengolahanKomposController extends ApiController
             'waktu_masuk' => 'required',
             'berat_masuk' => 'required|numeric',
             'berat_keluar' => 'numeric',
-            'kompos_keluar' => 'required|numeric',
+            'kompos_keluar' => 'numeric',
             //'keterangan'=>'required'
         ]);
 
