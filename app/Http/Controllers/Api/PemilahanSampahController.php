@@ -28,9 +28,8 @@ class PemilahanSampahController extends ApiController
         $validator = Validator::make($input, [
             'id_kendaraan' => 'required',
             'waktu_masuk' => 'required',
-            'waktu_keluar' => 'required',
             'berat_masuk' => 'required|numeric',
-            'berat_keluar' => 'required|numeric',
+            'berat_keluar' => 'numeric',
             //'keterangan'=>'required'
         ]);
 
@@ -39,7 +38,7 @@ class PemilahanSampahController extends ApiController
         }
 
         try {
-            $input['berat_sampah'] = $input['berat_masuk'] - $input['berat_keluar'];
+           // $input['berat_sampah'] = $input['berat_masuk'] - $input['berat_keluar'];
             $data = PemilahanSampah::create($input);
 
             return $this->sendResponse(new PemilahanSampahResource($data), 'Data created successfully.');

@@ -28,9 +28,8 @@ class PengolahanKomposController extends ApiController
         $validator = Validator::make($input, [
             'id_kendaraan' => 'required',
             'waktu_masuk' => 'required',
-            'waktu_keluar' => 'required',
             'berat_masuk' => 'required|numeric',
-            'berat_keluar' => 'required|numeric',
+            'berat_keluar' => 'numeric',
             'kompos_keluar' => 'required|numeric',
             //'keterangan'=>'required'
         ]);
@@ -40,7 +39,7 @@ class PengolahanKomposController extends ApiController
         }
 
         try {
-            $input['berat_isi'] = $input['berat_masuk'] - $input['berat_keluar'];
+           // $input['berat_isi'] = $input['berat_masuk'] - $input['berat_keluar'];
             $data = PengolahanKompos::create($input);
 
             return $this->sendResponse(new PengolahanKomposResource($data), 'Data created successfully.');
