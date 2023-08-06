@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\PemilahanSampahController;
 use App\Http\Controllers\Api\PengolahanKomposController;
 use App\Http\Controllers\Api\SurveyController;
 use App\Http\Controllers\Api\QuestionController;
+use App\Http\Controllers\Api\QuestionOptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,4 +57,5 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('pengolahan-kompos', PengolahanKomposController::class);
     Route::apiResource('survey', SurveyController::class);
     Route::apiResource('question', QuestionController::class);
+    Route::apiResource('question-option', QuestionOptionController::class);
 });
