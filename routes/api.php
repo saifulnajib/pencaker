@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\SuratRetribusiController;
 use App\Http\Controllers\Api\PenyedotanTinjaController;
 use App\Http\Controllers\Api\PemilahanSampahController;
 use App\Http\Controllers\Api\PengolahanKomposController;
+use App\Http\Controllers\Api\SurveyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +53,5 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('penyedotan-tinja', PenyedotanTinjaController::class);
     Route::apiResource('pemilahan-sampah', PemilahanSampahController::class);
     Route::apiResource('pengolahan-kompos', PengolahanKomposController::class);
+    Route::apiResource('survey', SurveyController::class);
 });
