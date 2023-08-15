@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Resources\SampahResource;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
+use Pdf;
 
 class SampahController extends ApiController
 {
@@ -145,5 +146,14 @@ class SampahController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+    public function print()
+    {
+        $data['hello'] = 'Hello World';
+        $data['sampah'] = Sampah::with(['jenisSampah','kendaraan'])->filter()->get();
+        $pdf = Pdf::loadView('print.sampah', $data);
+        return $pdf->setPaper('legal', 'landscape')->stream(); // preview pdf
+        //return $pdf->setPaper('legal', 'portrait')->download('sampah.pdf'); // direct download
     }
 }

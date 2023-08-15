@@ -32,6 +32,8 @@ Route::get('', function(){
     return response()->json(["status" => true, "message" => "Hello from SIMLH APIv1"], 200);
 });
 
+Route::get('print/sampah', [SampahController::class, 'print']);
+
 Route::controller(AuthController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('login', 'login');
