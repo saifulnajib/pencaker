@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('kode_wilayah');
             $table->text('file_surat_pengajuan');
-            $table->int('status_pengajuan')->default(0);
+            $table->integer('status_pengajuan')->default(0);
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
