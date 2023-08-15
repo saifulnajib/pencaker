@@ -41,6 +41,16 @@ class ProklimController extends ApiController
             return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
 
+        if ($request->hasFile('file_sertifikat')) {
+            $file = $request->file('file_sertifikat');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/proklim', $filename); // storage/app/public
+
+            $input['file_sertifikat'] = 'uploads/proklim/'.$filename;
+        }else{
+            return response()->json(['message' => 'File sertifikat harus diunggah'], 400);
+        }
+
         try {
             $data = Proklim::create($input);
 
@@ -83,6 +93,14 @@ class ProklimController extends ApiController
         }
 
         $data = Proklim::find($id);
+
+        if ($request->hasFile('file_sertifikat')) {
+            $file = $request->file('file_sertifikat');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/proklim', $filename); // storage/app/public
+
+            $data->file_sertifikat = 'uploads/proklim/'.$filename;
+        }
 
         $data->nama = $input['nama'];
         $data->id_kategori = $input['id_kategori'];
