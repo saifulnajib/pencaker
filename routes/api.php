@@ -3,19 +3,23 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BankSampahController;
 use App\Http\Controllers\Api\RuteController;
 use App\Http\Controllers\Api\SampahController;
 use App\Http\Controllers\Api\KendaraanController;
 use App\Http\Controllers\Api\JenisSampahController;
 use App\Http\Controllers\Api\JenisKendaraanController;
 use App\Http\Controllers\Api\KategoriPenyedotanController;
+use App\Http\Controllers\Api\KategoriProklimController;
 use App\Http\Controllers\Api\SuratRetribusiController;
 use App\Http\Controllers\Api\PenyedotanTinjaController;
 use App\Http\Controllers\Api\PemilahanSampahController;
 use App\Http\Controllers\Api\PengolahanKomposController;
+use App\Http\Controllers\Api\ProklimController;
 use App\Http\Controllers\Api\SurveyController;
 use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\QuestionOptionController;
+use App\Http\Controllers\Api\UsulanProklimController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,4 +64,10 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('survey', SurveyController::class);
     Route::apiResource('question', QuestionController::class);
     Route::apiResource('question-option', QuestionOptionController::class);
+
+    Route::apiResource('bank-sampah', BankSampahController::class);
+    Route::apiResource('kategori-proklim', KategoriProklimController::class);
+    Route::get('option/kategori-proklim', [KategoriProklimController::class, 'option']);
+    Route::apiResource('usulan-proklim', UsulanProklimController::class);
+    Route::apiResource('proklim', ProklimController::class);
 });
