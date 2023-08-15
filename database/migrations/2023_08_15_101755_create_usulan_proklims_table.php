@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kode_wilayah');
             $table->string('nama_ketua');
             $table->text('file_surat_usulan');
-            $table->int('status_usulan')->default(0);
+            $table->integer('status_usulan')->default(0);
             $table->timestamps();
         });
     }
