@@ -7,9 +7,11 @@ use Validator;
 use App\Models\BankSampah;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\BankSampahResource;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Controllers\Api\ApiController;
+
 
 class BankSampahController extends ApiController
 {
@@ -37,6 +39,16 @@ class BankSampahController extends ApiController
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors(), 422);
+        }
+
+        if ($request->hasFile('file_surat_pengajuan')) {
+            $file = $request->file('file_surat_pengajuan');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/banksampah', $filename); // storage/app/public
+
+            $input['file_surat_pengajuan'] = 'uploads/banksampah/'.$filename;
+        }else{
+            return response()->json(['message' => 'File surat pengajuan harus diunggah'], 400);
         }
 
         try {
@@ -79,6 +91,15 @@ class BankSampahController extends ApiController
         }
 
         $data = BankSampah::find($id);
+
+        if ($request->hasFile('file_surat_pengajuan')) {
+            $file = $request->file('file_surat_pengajuan');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/banksampah', $filename); // storage/app/public
+
+            $data->file_surat_pengajuan = 'uploads/banksampah/'.$filename;
+        }
+
 
         $data->nama = $input['nama'];
         $data->alamat = $input['alamat'];
