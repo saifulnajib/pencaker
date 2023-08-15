@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('no_registrasi');
             $table->string('alamat');
             $table->string('kode_wilayah');
-            $table->int('tahun_proklim');
+            $table->integer('tahun_proklim');
             $table->text('file_sertifikat');
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
