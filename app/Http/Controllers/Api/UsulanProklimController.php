@@ -36,6 +36,16 @@ class UsulanProklimController extends ApiController
             return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
 
+        if ($request->hasFile('file_surat_usulan')) {
+            $file = $request->file('file_surat_usulan');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/usulanproklim', $filename); // storage/app/public
+
+            $input['file_surat_usulan'] = 'uploads/usulanproklim/'.$filename;
+        }else{
+            return response()->json(['message' => 'File surat usulan harus diunggah'], 400);
+        }
+
         try {
             $data = UsulanProklim::create($input);
 
@@ -74,6 +84,14 @@ class UsulanProklimController extends ApiController
         }
 
         $data = UsulanProklim::find($id);
+
+        if ($request->hasFile('file_surat_usulan')) {
+            $file = $request->file('file_surat_usulan');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/usulanproklim', $filename); // storage/app/public
+
+            $data->file_surat_usulan = 'uploads/usulanproklim/'.$filename;
+        }
 
         $data->nama = $input['nama'];
         $data->alamat = $input['alamat'];
