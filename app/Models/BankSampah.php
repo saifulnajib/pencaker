@@ -22,6 +22,7 @@ class BankSampah extends Model
     protected $fillable = [
         'nama', 'alamat',
         'kode_wilayah', 'file_surat_pengajuan',
+        'latitude', 'longitude',
         'status_pengajuan', 'is_active'
     ];
 }
