@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\ProklimController;
 use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\KendaraanController;
 use App\Http\Controllers\Api\BankSampahController;
+use App\Http\Controllers\Api\PengawasanController;
 use App\Http\Controllers\Api\JenisSampahController;
 use App\Http\Controllers\Api\KegiatanUsahaController;
 use App\Http\Controllers\Api\UsulanProklimController;
@@ -77,4 +78,5 @@ Route::middleware('auth.jwt')->group( function () {
     Route::get('option/sektor-kegiatan', [SektorKegiatanUsahaController::class, 'option']);
     Route::apiResource('kegiatan-usaha', KegiatanUsahaController::class);
     Route::get('option/kegiatan-usaha', [KegiatanUsahaController::class, 'option']);
+    Route::apiResource('pengawasan', PengawasanController::class);
 });
