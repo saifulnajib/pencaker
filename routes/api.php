@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\KendaraanController;
 use App\Http\Controllers\Api\BankSampahController;
 use App\Http\Controllers\Api\JenisSampahController;
+use App\Http\Controllers\Api\KegiatanUsahaController;
 use App\Http\Controllers\Api\UsulanProklimController;
 use App\Http\Controllers\Api\JenisKendaraanController;
 use App\Http\Controllers\Api\QuestionOptionController;
@@ -74,4 +75,6 @@ Route::middleware('auth.jwt')->group( function () {
 
     Route::apiResource('sektor-kegiatan', SektorKegiatanUsahaController::class);
     Route::get('option/sektor-kegiatan', [SektorKegiatanUsahaController::class, 'option']);
+    Route::apiResource('kegiatan-usaha', KegiatanUsahaController::class);
+    Route::get('option/kegiatan-usaha', [KegiatanUsahaController::class, 'option']);
 });
