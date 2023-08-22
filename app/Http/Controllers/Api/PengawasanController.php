@@ -37,10 +37,10 @@ class PengawasanController extends ApiController
         $validator = Validator::make($input, [
             'id_kegiatan_usaha' => 'required',
             'tanggal_pengawasan' => 'required',
-            'temuan' => 'required',
+            'temuan_pengawasan' => 'required',
             'surat_tindaklanjut' => 'required',
-            'rekomendasi' => 'required',
-            'batas_waktu' => 'required',
+            'rekomendasi_hasil_pengawasan' => 'required',
+            'batas_waktu_tindaklanjut' => 'required',
             'tindaklanjut_usaha' => 'required',
         ]);
 
@@ -84,10 +84,10 @@ class PengawasanController extends ApiController
         $validator = Validator::make($input, [
             'id_kegiatan_usaha' => 'required',
             'tanggal_pengawasan' => 'required',
-            'temuan' => 'required',
+            'temuan_pengawasan' => 'required',
             'surat_tindaklanjut' => 'required',
-            'rekomendasi' => 'required',
-            'batas_waktu' => 'required',
+            'rekomendasi_hasil_pengawasan' => 'required',
+            'batas_waktu_tindaklanjut' => 'required',
             'tindaklanjut_usaha' => 'required',
         ]);
 
@@ -99,10 +99,10 @@ class PengawasanController extends ApiController
 
         $data->id_kegiatan_usaha = $input['id_kegiatan_usaha'];
         $data->tanggal_pengawasan = $input['tanggal_pengawasan'];
-        $data->temuan_pengawasan = $input['temuan'];
+        $data->temuan_pengawasan = $input['temuan_pengawasan'];
         $data->surat_tindaklanjut = $input['surat_tindaklanjut'];
-        $data->rekomendasi_hasil_pengawasan = $input['rekomendasi'];
-        $data->batas_waktu_tindaklanjut = $input['batas_waktu'];
+        $data->rekomendasi_hasil_pengawasan = $input['rekomendasi_hasil_pengawasan'];
+        $data->batas_waktu_tindaklanjut = $input['batas_waktu_tindaklanjut'];
         $data->tindaklanjut_usaha = $input['tindaklanjut_usaha'];
         $data->save();
 

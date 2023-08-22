@@ -17,10 +17,10 @@ class PengawasanResource extends JsonResource
         return [
             'id' => $this->id,
             'tanggal_pengawasan' => $this->tanggal_pengawasan,
-            'temuan' => $this->temuan_pengawasan,
+            'temuan_pengawasan' => $this->temuan_pengawasan,
             'surat_tindaklanjut' => $this->surat_tindaklanjut,
-            'rekomendasi' => $this->rekomendasi_hasil_pengawasan,
-            'batas_waktu' => $this->batas_waktu_tindaklanjut,
+            'rekomendasi_hasil_pengawasan' => $this->rekomendasi_hasil_pengawasan,
+            'batas_waktu_tindaklanjut' => $this->batas_waktu_tindaklanjut,
             'id_kegiatan_usaha' => $this->id_kegiatan_usaha,
             'kegiatan_usaha' => $this->kegiatanUsaha,
             'tindaklanjut_usaha' => $this->tindaklanjut_usaha,

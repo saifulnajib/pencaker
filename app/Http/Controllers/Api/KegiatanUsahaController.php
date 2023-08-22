@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use Validator;
-use App\Models\KegiatanUsaha;
 use Illuminate\Http\Request;
+use App\Models\KegiatanUsaha;
 use Illuminate\Http\JsonResponse;
-use App\Http\Resources\KegiatanUsahaResource;
-use App\Http\Resources\Base\BaseCollection;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Resources\Base\BaseCollection;
+use App\Http\Resources\KegiatanUsahaResource;
 
 class KegiatanUsahaController extends ApiController
 {
