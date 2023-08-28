@@ -41,6 +41,7 @@ Route::get('', function(){
 
 Route::get('print/sampah', [SampahController::class, 'print']);
 Route::get('print/penyedotan-tinja/{tahun}/{bulan}', [PenyedotanTinjaController::class, 'print']);
+Route::get('print/pemilahan-sampah/{tahun}/{bulan}', [PemilahanSampahController::class, 'print']);
 
 Route::controller(AuthController::class)->group(function(){
     Route::post('register', 'register');
