@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Resources\PenyedotanTinjaResource;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Controllers\Api\ApiController;
+use Pdf;
 
 class PenyedotanTinjaController extends ApiController
 {
@@ -109,5 +110,17 @@ class PenyedotanTinjaController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+    public function print($tahun,$bulan)
+    {
+        $data['bulan'] = $bulan;
+        $data['tahun'] = $tahun;
+        $data['data'] = PenyedotanTinja::with(['kategoriPenyedotan'])->whereMonth('tanggal_penyedotan', $bulan)->get();
+        $data['jumlah_penyedotan'] = array_sum(array_column($data['data']->toArray(),'retribusi_penyedotan'));
+        $data['jumlah_pembuangan'] = array_sum(array_column($data['data']->toArray(),'retribusi_pembuangan'));
+        $pdf = Pdf::loadView('print.penyedotan_tinja', $data);
+        return $pdf->setPaper('legal', 'landscape')->stream(); // preview pdf
+        //return $pdf->setPaper('legal', 'portrait')->download('sampah.pdf'); // direct download
     }
 }
