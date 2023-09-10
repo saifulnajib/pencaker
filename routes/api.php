@@ -81,6 +81,7 @@ Route::get('export/sedot_tinja_monthly', [PenyedotanTinjaController::class, 'exp
 Route::get('export/lokasi_pemantauan_monthly', [LokasiPemantauanController::class, 'exportLokasiPemantauanBulanan']);
 Route::get('export/pelaksanaan_pengawasan', [PengawasanController::class, 'exportPelaksanaanPengawasan']);
 Route::get('export/pelaksanaan_pengawasan_rinci', [PengawasanController::class, 'exportPelaksanaanPengawasanRinci']);
+Route::get('export/pengolahan_kompos_monthly', [PengolahanKomposController::class, 'exportPengolahanKomposBulanan']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
