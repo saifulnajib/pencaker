@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use Validator;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Pengawasan;
+use App\Models\KegiatanUsaha;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\PengawasanResource;
+use App\Exports\PelaksanaanPengawasanExport;
 
 class PengawasanController extends ApiController
 {
@@ -140,5 +145,19 @@ class PengawasanController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+    public function exportPelaksanaanPengawasan()
+    {
+        $data_pantau = KegiatanUsaha::with(['sektorKegiatan','pelaksanaanPengawasan'])->get();
+
+        // return $data_pantau;
+        $data = [
+            'data' => $data_pantau,
+        ];
+
+        $export_name = "Laporan-pelaksanaan-pengawasan.xlsx";
+
+        return Excel::download(new PelaksanaanPengawasanExport($data), $export_name);
     }
 }

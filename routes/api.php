@@ -79,6 +79,7 @@ Route::get('export/truk_daily', [KendaraanController::class, 'exportTrukSampahHa
 Route::get('export/truk_monthly', [KendaraanController::class, 'exportTrukSampahBulanan']);
 Route::get('export/sedot_tinja_monthly', [PenyedotanTinjaController::class, 'exportSedotTinjaBulanan']);
 Route::get('export/lokasi_pemantauan_monthly', [LokasiPemantauanController::class, 'exportLokasiPemantauanBulanan']);
+Route::get('export/pelaksanaan_pengawasan', [PengawasanController::class, 'exportPelaksanaanPengawasan']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
