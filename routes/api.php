@@ -27,6 +27,7 @@ use App\Http\Controllers\Api\PemetaanTPSController;
 use App\Http\Controllers\Api\PemetaanTSLController;
 use App\Http\Controllers\Api\LokasiPemantauanController;
 use App\Http\Controllers\Api\PenjaringanIsuController;
+use App\Http\Controllers\Api\ZonasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,5 +97,8 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('pemantauan/lokasi', LokasiPemantauanController::class);
 
     Route::apiResource('penjaringan-isu', PenjaringanIsuController::class);
+
+    Route::apiResource('zonasi', ZonasiController::class);
+
 
 });
