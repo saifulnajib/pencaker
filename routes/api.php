@@ -77,6 +77,7 @@ Route::get('export/sampah_daily', [SampahController::class, 'exportSampahHarian'
 Route::get('export/pemungutan_daily', [SampahController::class, 'exportPemungutanHarian']);
 Route::get('export/truk_daily', [KendaraanController::class, 'exportTrukSampahHarian']);
 Route::get('export/truk_monthly', [KendaraanController::class, 'exportTrukSampahBulanan']);
+Route::get('export/sedot_tinja_monthly', [PenyedotanTinjaController::class, 'exportSedotTinjaBulanan']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
