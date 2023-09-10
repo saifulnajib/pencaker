@@ -29,6 +29,7 @@ use App\Http\Controllers\Api\LokasiPemantauanController;
 use App\Http\Controllers\Api\PenjaringanIsuController;
 use App\Http\Controllers\Api\ZonasiController;
 use App\Http\Controllers\Api\DimensiIsuController;
+use App\Http\Controllers\Api\IsuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,6 +104,6 @@ Route::middleware('auth.jwt')->group( function () {
 
     Route::apiResource('dimensi-isu', DimensiIsuController::class);
     Route::get('option/dimensi-isu', [DimensiIsuController::class, 'option']);
-
+    Route::apiResource('isu', IsuController::class);
 
 });
