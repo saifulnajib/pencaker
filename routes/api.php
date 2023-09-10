@@ -25,7 +25,7 @@ use App\Http\Controllers\Api\KategoriPenyedotanController;
 use App\Http\Controllers\Api\SektorKegiatanUsahaController;
 use App\Http\Controllers\Api\PemetaanTPSController;
 use App\Http\Controllers\Api\PemetaanTSLController;
-
+use App\Http\Controllers\Api\LokasiPemantauanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,4 +88,6 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('kegiatan-usaha', KegiatanUsahaController::class);
     Route::get('option/kegiatan-usaha', [KegiatanUsahaController::class, 'option']);
     Route::apiResource('pengawasan', PengawasanController::class);
+
+    Route::apiResource('pemantauan/lokasi', LokasiPemantauanController::class);
 });
