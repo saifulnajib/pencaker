@@ -22,7 +22,7 @@ class Pengawasan extends Model
     protected $fillable = [
         'tanggal_pengawasan', 'temuan_pengawasan',
         'surat_tindaklanjut', 'rekomendasi_hasil_pengawasan', 'batas_waktu_tindaklanjut',
-        'id_kegiatan_usaha', 'tindaklanjut_usaha',
+        'id_kegiatan_usaha', 'tindaklanjut_usaha', 'status_pengawasan',
     ];
 
     public function kegiatanUsaha(){
