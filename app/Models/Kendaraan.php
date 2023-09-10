@@ -32,4 +32,8 @@ class Kendaraan extends Model
     public function ruteKendaraan(){
         return $this->belongsTo(Rute::class, 'rute', 'id');
     }
+
+    public function sampahMasuk(){
+        return $this->hasMany(Sampah::class, 'id_kendaraan');
+    }
 }
