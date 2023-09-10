@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\PengawasanResource;
 use App\Exports\PelaksanaanPengawasanExport;
+use App\Exports\PelaksanaanPengawasanRinciExport;
 
 class PengawasanController extends ApiController
 {
@@ -159,5 +160,36 @@ class PengawasanController extends ApiController
         $export_name = "Laporan-pelaksanaan-pengawasan.xlsx";
 
         return Excel::download(new PelaksanaanPengawasanExport($data), $export_name);
+    }
+
+    public function exportPelaksanaanPengawasanRinci(Request $request)
+    {
+        $tahun = date('Y');
+        $bulan = date('m');
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tahun'))) {
+            $tahun = $request->query('tahun');
+        }
+        
+        if (!empty($request->query('bulan'))) {
+            $bulan = $request->query('bulan');
+        }
+        $data_pengawasan = Pengawasan::with(['kegiatanUsaha'])->whereMonth('tanggal_pengawasan',$bulan)->whereYear('tanggal_pengawasan',$tahun)->get();
+
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+        $dataTime = Carbon::parse("$tahun-$bulan-01")->locale('id-ID');
+
+        $data = [
+            'data' => $data_pengawasan,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($dataTime->translatedFormat('F')),
+            'tahun' => $dataTime->translatedFormat('Y'),
+        ];
+
+        $export_name = "Laporan-pelaksanaan-pengawasan-rinci.xlsx";
+
+        return Excel::download(new PelaksanaanPengawasanRinciExport($data), $export_name);
     }
 }

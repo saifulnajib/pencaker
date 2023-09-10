@@ -80,6 +80,7 @@ Route::get('export/truk_monthly', [KendaraanController::class, 'exportTrukSampah
 Route::get('export/sedot_tinja_monthly', [PenyedotanTinjaController::class, 'exportSedotTinjaBulanan']);
 Route::get('export/lokasi_pemantauan_monthly', [LokasiPemantauanController::class, 'exportLokasiPemantauanBulanan']);
 Route::get('export/pelaksanaan_pengawasan', [PengawasanController::class, 'exportPelaksanaanPengawasan']);
+Route::get('export/pelaksanaan_pengawasan_rinci', [PengawasanController::class, 'exportPelaksanaanPengawasanRinci']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
