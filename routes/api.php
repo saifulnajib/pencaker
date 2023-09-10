@@ -43,6 +43,7 @@ Route::get('print/sampah', [SampahController::class, 'print']);
 Route::get('print/penyedotan-tinja/{tahun}/{bulan}', [PenyedotanTinjaController::class, 'print']);
 Route::get('print/pemilahan-sampah/{tahun}/{bulan}', [PemilahanSampahController::class, 'print']);
 Route::get('print/pengolahan-kompos/{tahun}/{bulan}', [PengolahanKomposController::class, 'print']);
+Route::get('export/sampah_daily', [SampahController::class, 'exportSampahHarian']);
 
 Route::controller(AuthController::class)->group(function(){
     Route::post('register', 'register');
