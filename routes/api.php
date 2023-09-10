@@ -23,6 +23,9 @@ use App\Http\Controllers\Api\PenyedotanTinjaController;
 use App\Http\Controllers\Api\PengolahanKomposController;
 use App\Http\Controllers\Api\KategoriPenyedotanController;
 use App\Http\Controllers\Api\SektorKegiatanUsahaController;
+use App\Http\Controllers\Api\PemetaanTPSController;
+use App\Http\Controllers\Api\PemetaanTSLController;
+
 
 /*
 |--------------------------------------------------------------------------
