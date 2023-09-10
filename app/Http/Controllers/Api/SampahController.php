@@ -148,11 +148,12 @@ class SampahController extends ApiController
         return $this->sendResponse([], 'Data deleted successfully.');
     }
 
-    public function print()
+    public function print($jenis,$tahun,$bulan,$tanggal)
     {
-        $data['hello'] = 'Hello World';
-        $data['sampah'] = Sampah::with(['jenisSampah','kendaraan'])->filter()->get();
+        $data['tanggal'] = $tahun.'-'.$bulan.'-'.$tanggal;
+        $data['sampah'] = Sampah::with(['jenisSampah','kendaraan'])->whereDate('waktu_masuk',$data['tanggal'])->get();
         $pdf = Pdf::loadView('print.sampah', $data);
+        // dd($data);
         return $pdf->setPaper('legal', 'landscape')->stream(); // preview pdf
         //return $pdf->setPaper('legal', 'portrait')->download('sampah.pdf'); // direct download
     }

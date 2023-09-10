@@ -93,16 +93,16 @@ $jumlah_kompos=0;
     <br />
     <table class="table">
     <thead>
-        <tr style="background-color:#a8dadc">
-        <th rowspan="2" width="3%"><strong>No</strong></th>
-        <th rowspan="2" width="15%"><strong>Tanggal</strong></th>
-        <th rowspan="2" width="15%"><strong>Nopol</br>Kendaraan</strong></th>
-        <th colspan="2" width="8%"><strong>Jam</strong></th>
-        <th colspan="3" width="15%"><strong>Berat (Kg)</strong></th>
-        <th rowspan="2" width="8%"><strong>Kompos</br>Keluar</br>(Kg)</strong></th>
-        <th rowspan="2" width="20%"><strong>Keterangan</strong></th>
+        <tr style="background-color:#F8FDCF">
+            <th rowspan="2" width="3%"><strong>No</strong></th>
+            <th rowspan="2" width="15%"><strong>Tanggal</strong></th>
+            <th rowspan="2" width="15%"><strong>Nopol</br>Kendaraan</strong></th>
+            <th colspan="2" width="8%"><strong>Jam</strong></th>
+            <th colspan="3" width="15%"><strong>Berat (Kg)</strong></th>
+            <th rowspan="2" width="8%"><strong>Kompos</br>Keluar</br>(Kg)</strong></th>
+            <th rowspan="2" width="20%"><strong>Keterangan</strong></th>
         </tr>
-        <tr style="background-color:#a8dadc">
+        <tr style="background-color:#F8FDCF">
             <th>Masuk</th>
             <th>Keluar</th>
             <th>Masuk</th>
@@ -133,7 +133,7 @@ $jumlah_kompos=0;
                 @endphp
             @endif
         @endforeach
-            <tr style="background-color:#a8dadc">
+            <tr style="background-color:#FBD85D">
                 <td colspan="5" class="center"><strong>Jumlah</strong></td>
                 <td class="center"><strong>{{$jumlah_masuk}}</strong></td>
                 <td class="center"><strong>{{$jumlah_keluar}}</strong></td>

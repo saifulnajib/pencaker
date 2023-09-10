@@ -76,7 +76,9 @@
             <!-- <div style="border-top: 3px solid #000;border-bottom: 2px solid #000;padding-top:2px;margin-bottom: 5px;margin-top: 5px"></div> -->
             <br>
             <div class="center">
-                <h1><b><u>LAPORAN SAMPAH</u></b></h1>
+                <h3><b>DATA SAMPAH MASUK HARIAN {{$tanggal}}</b></h3>
+                <h3><b>UPTD TPA</b></h3>
+                <h3><b>KOTA TANJUNGPINANG</b></h3>
             </div>
 
             <div class="" style="margin-top:1.5rem; margin-bottom:1.5rem">
@@ -84,7 +86,12 @@
                     <tr>
                         <td width="10%">TANGGAL</td>
                         <td width="1%">:</td>
-                        <td>{{date('d-m-Y')}}</td>
+                        <td>{{date('d F Y', strtotime($tanggal))}}</td>
+                    </tr>
+                    <tr>
+                        <td width="10%">Bulan</td>
+                        <td width="1%">:</td>
+                        <td>{{date('F', strtotime($tanggal))}}</td>
                     </tr>
                 </table>
             </div>
@@ -116,7 +123,7 @@
                 </table>
 
             <div class="ttd" style="margin-top:1rem;">
-                <p style="font-size: 10pt;">Tanjungpinang, {{date('d-m-Y')}}</p>
+                <p style="font-size: 10pt;">Tanjungpinang, {{date('d F Y', strtotime($tanggal))}}</p>
                 <p style="margin:5px 0px;font-size: 10pt;">
                     KEPALA UPTD TPA GANET<br/>
                     DINAS LINGKUNGAN HIDUP<br/>

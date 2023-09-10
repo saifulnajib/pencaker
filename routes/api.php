@@ -39,7 +39,7 @@ Route::get('', function(){
     return response()->json(["status" => true, "message" => "Hello from SIMLH APIv1"], 200);
 });
 
-Route::get('print/sampah', [SampahController::class, 'print']);
+Route::get('print/sampah/{tipe}/{tahun}/{bulan}/{tanggal}', [SampahController::class, 'print']);
 Route::get('print/penyedotan-tinja/{tahun}/{bulan}', [PenyedotanTinjaController::class, 'print']);
 Route::get('print/pemilahan-sampah/{tahun}/{bulan}', [PemilahanSampahController::class, 'print']);
 Route::get('print/pengolahan-kompos/{tahun}/{bulan}', [PengolahanKomposController::class, 'print']);
