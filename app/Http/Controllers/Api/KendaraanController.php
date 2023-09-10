@@ -10,8 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\TrukSampahHarianExport;
 use App\Http\Resources\KendaraanResource;
+use App\Exports\TrukSampahHarianExport;
+use App\Exports\TrukSampahBulananExport;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 
@@ -137,7 +138,7 @@ class KendaraanController extends ApiController
 
         return $this->sendResponse([], 'Data deleted successfully.');
     }
-
+    
     public function exportTrukSampahHarian(Request $request)
     {
         $tanggal = date('Y-m-d');
@@ -167,12 +168,12 @@ class KendaraanController extends ApiController
                 'nip_pejabat' => "19731125 2000604 1 006",
             ],
         ];
-
+        
         $export_name = "Laporan-truk-sampah-masuk-harian-$tanggal.xlsx";
 
         return Excel::download(new TrukSampahHarianExport($data), $export_name);
     }
-
+    
     public function exportTrukSampahBulanan(Request $request)
     {
         $tahun = date('Y');
@@ -182,14 +183,14 @@ class KendaraanController extends ApiController
         if (!empty($request->query('tahun'))) {
             $tahun = $request->query('tahun');
         }
-
+        
         if (!empty($request->query('bulan'))) {
             $bulan = $request->query('bulan');
         }
 
         $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
         $dataTime = Carbon::parse("$tahun-$bulan-01")->locale('id-ID');
-
+                    
         $data_truk = Kendaraan::with(['sampahMasuk' => function ($query) use ($bulan, $tahun) {
             $query->whereMonth('sampah.waktu_masuk', '=', $bulan)
             ->whereYear('sampah.waktu_masuk', '=', $tahun);
@@ -208,7 +209,7 @@ class KendaraanController extends ApiController
                 'nip_pejabat' => "19731125 2000604 1 006",
             ],
         ];
-
+        
         $export_name = "Laporan-truk-sampah-masuk-bulan-".$data['bulan']."-".$data['tahun'].".xlsx";
 
         return Excel::download(new TrukSampahBulananExport($data), $export_name);

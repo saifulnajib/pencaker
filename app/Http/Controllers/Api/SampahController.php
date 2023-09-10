@@ -151,7 +151,7 @@ class SampahController extends ApiController
 
         return $this->sendResponse([], 'Data deleted successfully.');
     }
-
+    
     public function print()
     {
         $data['hello'] = 'Hello World';
@@ -160,7 +160,8 @@ class SampahController extends ApiController
         return $pdf->setPaper('legal', 'landscape')->stream(); // preview pdf
         //return $pdf->setPaper('legal', 'portrait')->download('sampah.pdf'); // direct download
     }
-
+    
+    
     public function exportSampahHarian(Request $request)
     {
         $tanggal = date('Y-m-d');

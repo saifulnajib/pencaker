@@ -22,6 +22,17 @@ class PenjaringanIsuController extends ApiController
         $data = PenjaringanIsu::all();
         return $this->sendResponse(PenjaringanIsuResource::collection($data), 'Data retrieved successfully.');
     }
+    
+    public function availableQuestioner(Request $request): JsonResponse
+    {
+        $data = PenjaringanIsu::find(1);
+
+        if (is_null($data)) {
+            return $this->sendError('Data not found.');
+        }
+
+        return $this->sendResponse(new PenjaringanIsuResource($data), 'Data retrieved successfully.');
+    }
 
     /**
      * Store a newly created resource in storage.

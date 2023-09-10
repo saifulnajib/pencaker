@@ -9,6 +9,7 @@ use App\Models\LokasiPemantauan;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\LokasiPemantauanResource;
+use App\Http\Resources\HasilPemantauanResource;
 
 class LokasiPemantauanController extends ApiController
 {
@@ -22,6 +23,18 @@ class LokasiPemantauanController extends ApiController
         $perPage = $request->query('size', 10);
         $data = LokasiPemantauan::with(['kegiatanUsaha'])->filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, LokasiPemantauanResource::class), 'Data retrieved successfully.');
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function hasil(Request $request): JsonResponse
+    {
+        $perPage = $request->query('size', 10);
+        $data = LokasiPemantauan::with(['kegiatanUsaha'])->filter()->paginate($perPage);
+        return $this->sendResponse(new BaseCollection($data, HasilPemantauanResource::class), 'Data retrieved successfully.');
     }
 
     /**

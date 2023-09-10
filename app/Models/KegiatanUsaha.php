@@ -29,19 +29,30 @@ class KegiatanUsaha extends Model
     public function sektorKegiatan(){
         return $this->belongsTo(SektorKegiatanUsaha::class, 'id_sektor', 'id');
     }
-
+    
     public function pelaksanaanPengawasan(){
         return $this->hasMany(Pengawasan::class, 'id_kegiatan_usaha');
     }
-
+    
+    protected function getCurrentStatus(): String {
+        $lastPelaksanaan = $this->pelaksanaanPengawasan()->latest('tanggal_pengawasan')->first();
+        return $lastPelaksanaan->status_pengawasan ?? null;
+    }
+    
     protected function getListTanggalPengawasan(): String {
         $pelaksanaan = $this->pelaksanaanPengawasan()->pluck('tanggal_pengawasan')->implode(',');
         return $pelaksanaan;
     }
-
+    
     public function pelaksanaan(): Attribute {
         return Attribute::make(
             get: fn () => $this->getListTanggalPengawasan(),
+        );
+    }
+    
+    public function statusPengawasan(): Attribute {
+        return Attribute::make(
+            get: fn () => $this->getCurrentStatus(),
         );
     }
 }

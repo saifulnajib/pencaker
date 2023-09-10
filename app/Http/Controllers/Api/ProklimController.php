@@ -8,6 +8,7 @@ use App\Models\Proklim;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\ProklimResource;
+use App\Http\Resources\TitikKoordinatResource;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Controllers\Api\ApiController;
 
@@ -19,6 +20,12 @@ class ProklimController extends ApiController
         $perPage = $request->query('size', 10);
         $data = Proklim::with(['kategoriProklim'])->filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, ProklimResource::class), 'Data retrieved successfully.');
+    }
+    
+    public function pemetaan(Request $request): JsonResponse
+    {
+        $data = Proklim::all();
+        return $this->sendResponse(TitikKoordinatResource::collection($data), 'Data retrieved successfully.');
     }
     
     public function store(Request $request): JsonResponse

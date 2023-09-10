@@ -20,6 +20,12 @@ class PemetaanTSLController extends ApiController
         $data = TitikKoordinat::where('jenis','tsl')->filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, TitikKoordinatResource::class), 'Data retrieved successfully.');
     }
+    
+    public function pemetaan(Request $request): JsonResponse
+    {
+        $data = TitikKoordinat::where('jenis','tsl')->get();
+        return $this->sendResponse(TitikKoordinatResource::collection($data), 'Data retrieved successfully.');
+    }
 
     public function store(Request $request): JsonResponse
     {

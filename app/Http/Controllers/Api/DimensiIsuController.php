@@ -7,9 +7,9 @@ use App\Models\DimensiIsu;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-use App\Http\Resources\DimensiIsuResource;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
+use App\Http\Resources\DimensiIsuResource;
 
 class DimensiIsuController extends ApiController
 {

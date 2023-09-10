@@ -23,6 +23,17 @@ class PengawasanController extends ApiController
         $data = Pengawasan::with(['kegiatanUsaha'])->filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, PengawasanResource::class), 'Data retrieved successfully.');
     }
+    
+    public function history($id): JsonResponse
+    {
+        $data = Pengawasan::where('id_kegiatan_usaha', $id)->orderBy('tanggal_pengawasan','desc')->get();
+
+        if (is_null($data)) {
+            return $this->sendError('Data not found.');
+        }
+
+        return $this->sendResponse(PengawasanResource::collection($data), 'Data retrieved successfully.');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -42,6 +53,7 @@ class PengawasanController extends ApiController
             'rekomendasi_hasil_pengawasan' => 'required',
             'batas_waktu_tindaklanjut' => 'required',
             'tindaklanjut_usaha' => 'required',
+            'status_pengawasan' => 'required|numeric',
         ]);
 
         if($validator->fails()){
@@ -89,6 +101,7 @@ class PengawasanController extends ApiController
             'rekomendasi_hasil_pengawasan' => 'required',
             'batas_waktu_tindaklanjut' => 'required',
             'tindaklanjut_usaha' => 'required',
+            'status_pengawasan' => 'required|numeric',
         ]);
 
         if($validator->fails()){
@@ -104,6 +117,7 @@ class PengawasanController extends ApiController
         $data->rekomendasi_hasil_pengawasan = $input['rekomendasi_hasil_pengawasan'];
         $data->batas_waktu_tindaklanjut = $input['batas_waktu_tindaklanjut'];
         $data->tindaklanjut_usaha = $input['tindaklanjut_usaha'];
+        $data->status_pengawasan = $input['status_pengawasan'];
         $data->save();
 
         return $this->sendResponse(new PengawasanResource($data), 'Data updated successfully.');

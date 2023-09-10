@@ -11,13 +11,13 @@ use App\Http\Resources\SurveyResource;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Controllers\Api\ApiController;
 
-class SurveyController extends ApiController
+class QuisionerController extends ApiController
 {
     
     public function index(Request $request): JsonResponse
     {
         $perPage = $request->query('size', 10);
-        $data = Survey::where('survey_type','skm')->filter()->paginate($perPage);
+        $data = Survey::where('survey_type','questioner')->filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, SurveyResource::class), 'Data retrieved successfully.');
     }
     
@@ -27,6 +27,8 @@ class SurveyController extends ApiController
 
         $validator = Validator::make($input, [
             'title' => 'required',
+            'started_at' => 'required',
+            'closed_at' => 'required',
         ]);
 
         if($validator->fails()){
@@ -34,6 +36,7 @@ class SurveyController extends ApiController
         }
 
         try {
+            $input['survey_type'] = 'questioner';
             $data = Survey::create($input);
 
             return $this->sendResponse(new SurveyResource($data), 'Data created successfully.');
@@ -59,7 +62,9 @@ class SurveyController extends ApiController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'title' => 'required'
+            'title' => 'required',
+            'started_at' => 'required',
+            'closed_at' => 'required',
         ]);
 
         if($validator->fails()){
@@ -69,6 +74,9 @@ class SurveyController extends ApiController
         $data = Survey::find($id);
 
         $data->title = $input['title'];
+        $data->survey_type = 'questioner';
+        $data->started_at = $input['started_at'];
+        $data->closed_at = $input['closed_at'];
         $data->save();
 
         return $this->sendResponse(new SurveyResource($data), 'Data updated successfully.');

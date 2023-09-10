@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Validator;
 use App\Models\Isu;
+use App\Models\JawabanIsu;
+use App\Models\DetilJawabanIsu;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Api\ApiController;
@@ -22,6 +24,59 @@ class IsuController extends ApiController
         $perPage = $request->query('size', 10);
         $data = Isu::with(['dimensi'])->filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, IsuResource::class), 'Data retrieved successfully.');
+    }
+    
+    public function questioner(Request $request): JsonResponse
+    {
+        $data = Isu::with(['dimensi'])->filter();
+        $data = $data->get();
+        return $this->sendResponse(IsuResource::collection($data), 'Data retrieved successfully.');
+    }
+    
+    public function postAnswer(Request $request): JsonResponse
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'token_opd' => 'required',
+            'skala_pencemaran' => 'required',
+            'skala_urgensi' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(), 422);
+        }
+
+        try {
+            $jawabanIsu = JawabanIsu::where('token_opd', $input['token_opd'])->first();
+            if ($jawabanIsu) {
+                $detilJawabanIsu = DetilJawabanIsu::where('id_jawaban_isu', $jawabanIsu->id)->first();
+                if ($detilJawabanIsu) {
+                    return $this->sendError('Data failed to create. Record exist');
+                } else {
+                    $skalaPencemaran = json_decode($input['skala_pencemaran'], true);
+                    $skalaUrgensi = json_decode($input['skala_urgensi'], true);
+                    if (count($skalaPencemaran) == count($skalaUrgensi)) {
+                        foreach($skalaPencemaran as $key=>$value) {
+                            DetilJawabanIsu::create([
+                                "id_jawaban_isu" => $jawabanIsu->id,
+                                "id_isu" => $key,
+                                "skala_pencemaran" => $value,
+                                "skala_urgensi" => $skalaUrgensi[$key],
+                            ]);
+                        }
+                        return $this->sendResponse([], 'Data created successfully.');
+                    } else {
+                        return $this->sendError('Data failed to create. Input length not equal');
+                    }
+                }
+            } else {
+                return $this->sendError('Data failed to create. Token invalid');
+            }
+        } catch (Exception $e)  {
+            return $this->sendError('Data failed to create.'.$e->getMessage());
+        }
+
     }
 
     /**
@@ -42,7 +97,7 @@ class IsuController extends ApiController
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
-
+        
         $input['id_penjaringan_isu'] = 1;
         $data = Isu::create($input);
 

@@ -16,7 +16,7 @@ use App\Http\Controllers\Api\ApiController;
 
 class QuestionController extends ApiController
 {
-
+    
     public function index(Request $request): JsonResponse
     {
         $surveyId = $request->query('survey_id', '');
@@ -28,7 +28,7 @@ class QuestionController extends ApiController
         $data = $data->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, QuestionResource::class), 'Data retrieved successfully.');
     }
-
+    
     public function survey(Request $request): JsonResponse
     {
         $surveyId = $request->query('survey_id', '');
@@ -39,7 +39,7 @@ class QuestionController extends ApiController
         $data = $data->get();
         return $this->sendResponse(QuestionResource::collection($data), 'Data retrieved successfully.');
     }
-
+    
     public function postAnswer(Request $request): JsonResponse
     {
         $input = $request->all();
@@ -54,14 +54,14 @@ class QuestionController extends ApiController
 
         try {
             $data = JawabanSurvey::create($input);
-
+            
             return $this->sendResponse(new JawabanSurveyResource($data), 'Data created successfully.');
         } catch (Exception $e)  {
             return $this->sendError('Data failed to create.'.$e->getMessage());
         }
 
     }
-
+    
     public function store(Request $request): JsonResponse
     {
         $input = $request->all();
@@ -79,7 +79,7 @@ class QuestionController extends ApiController
 
         try {
             $data = Question::create($input);
-
+            
             foreach ($input['options'] as $answerOptions) {
                 QuestionOption::create([
                     'question_id' => $data->id,
@@ -94,7 +94,7 @@ class QuestionController extends ApiController
         }
 
     }
-
+    
     public function show($id): JsonResponse
     {
         $data = Question::with(['options'])->find($id);
@@ -105,7 +105,7 @@ class QuestionController extends ApiController
 
         return $this->sendResponse(new QuestionResource($data), 'Data retrieved successfully.');
     }
-
+    
     public function update(Request $request, $id): JsonResponse
     {
         $input = $request->all();
@@ -126,7 +126,7 @@ class QuestionController extends ApiController
         $data->survey_id = $input['survey_id'];
         $data->question_text = $input['question_text'];
         $data->save();
-
+        
         foreach ($input['options'] as $answerOptions) {
             $opt = QuestionOption::find($answerOptions['id']);
             $opt->option_text = $answerOptions['option_text'];
@@ -136,7 +136,7 @@ class QuestionController extends ApiController
 
         return $this->sendResponse(new QuestionResource($data), 'Data updated successfully.');
     }
-
+    
     public function destroy($id): JsonResponse
     {
         $data = Question::find($id);

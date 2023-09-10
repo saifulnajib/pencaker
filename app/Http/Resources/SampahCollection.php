@@ -1,20 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Base;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class BaseCollection extends ResourceCollection
+class SampahCollection extends ResourceCollection
 {
-    protected $resourceClass;
-
-    public function __construct($resource, $resourceClass)
-    {
-        $this->resourceClass = $resourceClass;
-        parent::__construct($resource);
-    }
-
     /**
      * Transform the resource collection into an array.
      *
@@ -22,17 +14,13 @@ class BaseCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        $data = $this->collection->map(function ($item) {
-            return new $this->resourceClass($item);
-        });
-
         return [
-            'data' => $data,
+            'data' => SampahResource::collection($this->collection),
             'current_page' => $this->currentPage(),
             'last_page' => $this->lastPage(),
             'per_page' => $this->perPage(),
             'count' => $this->count(),
-            'last_row' => $this->total(),
+            'total' => $this->total(),
         ];
     }
 }
