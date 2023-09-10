@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\SektorKegiatanUsahaController;
 use App\Http\Controllers\Api\PemetaanTPSController;
 use App\Http\Controllers\Api\PemetaanTSLController;
 use App\Http\Controllers\Api\LokasiPemantauanController;
+use App\Http\Controllers\Api\PenjaringanIsuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,5 +94,7 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('pemetaan/sampah-liar', PemetaanTSLController::class);
 
     Route::apiResource('pemantauan/lokasi', LokasiPemantauanController::class);
+
+    Route::apiResource('penjaringan-isu', PenjaringanIsuController::class);
 
 });
