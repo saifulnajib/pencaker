@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use Pdf;
 use Exception;
 use Validator;
+use Carbon\Carbon;
 use App\Models\Sampah;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Resources\SampahResource;
-use App\Http\Resources\SampahCollection;
+use App\Exports\SampahMasukHarianExport;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Resources\Base\BaseCollection;
 
 class SampahController extends ApiController
 {
@@ -22,7 +27,7 @@ class SampahController extends ApiController
     {
         $perPage = $request->query('size', 10);
         $data = Sampah::with(['jenisSampah','kendaraan'])->filter()->paginate($perPage);
-        return $this->sendResponse(new SampahCollection($data), 'Data retrieved successfully.');
+        return $this->sendResponse(new BaseCollection($data, SampahResource::class), 'Data retrieved successfully.');
     }
 
     /**
@@ -145,5 +150,45 @@ class SampahController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+    
+    public function print()
+    {
+        $data['hello'] = 'Hello World';
+        $data['sampah'] = Sampah::with(['jenisSampah','kendaraan'])->filter()->get();
+        $pdf = Pdf::loadView('print.sampah', $data);
+        return $pdf->setPaper('legal', 'landscape')->stream(); // preview pdf
+        //return $pdf->setPaper('legal', 'portrait')->download('sampah.pdf'); // direct download
+    }
+    
+    
+    public function exportSampahHarian(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data_sampah = Sampah::with(['kendaraan'])->whereDate('waktu_masuk', $tanggal)->orderBy('waktu_masuk','asc')->get();
+
+        $data = [
+            'data' => $data_sampah,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($exportTime->translatedFormat('F')),
+            'ttd' => [
+                'lokasi' => "Tanjungpinang",
+                'waktu' => $exportTime->translatedFormat('d F Y'),
+                'jabatan' => "Kepala UPTD TPA",
+                'nama_pejabat' => "M. RIPAYANDI PUTRA, S.E",
+                'nip_pejabat' => "19731125 2000604 1 006",
+            ],
+        ];
+
+        $export_name = "Laporan-sampah-masuk-harian-$tanggal.xlsx";
+
+        return Excel::download(new SampahMasukHarianExport($data), $export_name);
     }
 }

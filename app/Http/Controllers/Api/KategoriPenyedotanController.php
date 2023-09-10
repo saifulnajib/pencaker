@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\KategoriPenyedotan;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\KategoriPenyedotanResource;
-use App\Http\Resources\KategoriPenyedotanCollection;
 
 class KategoriPenyedotanController extends ApiController
 {
@@ -21,7 +21,14 @@ class KategoriPenyedotanController extends ApiController
     {
         $perPage = $request->query('size', 10);
         $data = KategoriPenyedotan::filter()->paginate($perPage);
-        return $this->sendResponse(new KategoriPenyedotanCollection($data), 'Data retrieved successfully.');
+        return $this->sendResponse(new BaseCollection($data, KategoriPenyedotanResource::class), 'Data retrieved successfully.');
+    }
+
+
+    public function option(Request $request): JsonResponse
+    {
+        $data = KategoriPenyedotan::select('id', 'kategori as name')->where('is_active', 1)->latest('updated_at')->get();
+        return $this->sendResponse($data, 'Data retrieved successfully.');
     }
 
     /**

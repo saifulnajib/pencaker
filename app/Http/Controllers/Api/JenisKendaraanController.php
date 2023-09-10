@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\JenisKendaraan;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\JenisKendaraanResource;
-use App\Http\Resources\JenisKendaraanCollection;
 
 class JenisKendaraanController extends ApiController
 {
@@ -22,7 +22,7 @@ class JenisKendaraanController extends ApiController
     {
         $perPage = request()->query('size', 10);
         $data = JenisKendaraan::filter()->paginate($perPage);
-        return $this->sendResponse(new JenisKendaraanCollection($data), 'Data retrieved successfully.');
+        return $this->sendResponse(new BaseCollection($data, JenisKendaraanResource::class), 'Data retrieved successfully.');
     }
 
     /**
