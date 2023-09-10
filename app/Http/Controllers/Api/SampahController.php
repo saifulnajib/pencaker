@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Resources\SampahResource;
 use App\Exports\SampahMasukHarianExport;
+use App\Exports\SampahPemungutanHarianExport;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 
@@ -191,5 +192,36 @@ class SampahController extends ApiController
         $export_name = "Laporan-sampah-masuk-harian-$tanggal.xlsx";
 
         return Excel::download(new SampahMasukHarianExport($data), $export_name);
+    }
+
+    public function exportPemungutanHarian(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data_sampah = Sampah::with(['kendaraan'])->whereDate('waktu_masuk', $tanggal)->orderBy('waktu_masuk','asc')->get();
+
+        $data = [
+            'data' => $data_sampah,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($exportTime->translatedFormat('F')),
+            'ttd' => [
+                'lokasi' => "Tanjungpinang",
+                'waktu' => $exportTime->translatedFormat('d F Y'),
+                'jabatan' => "Kepala UPTD TPA",
+                'nama_pejabat' => "M. RIPAYANDI PUTRA, S.E",
+                'nip_pejabat' => "19731125 2000604 1 006",
+                'juru_pungut' => "REGITA FIDERTI"
+            ],
+        ];
+
+        $export_name = "Laporan-harian-pemungutan-retribusi-sampah-$tanggal.xlsx";
+
+        return Excel::download(new SampahPemungutanHarianExport($data), $export_name);
     }
 }

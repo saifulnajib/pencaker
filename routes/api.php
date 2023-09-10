@@ -74,6 +74,7 @@ Route::get('print/pemilahan-sampah/{tahun}/{bulan}', [PemilahanSampahController:
 Route::get('print/pengolahan-kompos/{tahun}/{bulan}', [PengolahanKomposController::class, 'print']);
 
 Route::get('export/sampah_daily', [SampahController::class, 'exportSampahHarian']);
+Route::get('export/pemungutan_daily', [SampahController::class, 'exportPemungutanHarian']);
 Route::get('export/truk_daily', [KendaraanController::class, 'exportTrukSampahHarian']);
 Route::get('export/truk_monthly', [KendaraanController::class, 'exportTrukSampahBulanan']);
 
