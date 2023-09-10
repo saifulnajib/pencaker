@@ -25,7 +25,7 @@ class Proklim extends Model
         'kode_wilayah', 'file_sertifikat',
         'latitude', 'longitude', 'is_active'
     ];
-
+    
     public function kategoriProklim(){
         return $this->belongsTo(KategoriProklim::class, 'id_kategori', 'id');
     }

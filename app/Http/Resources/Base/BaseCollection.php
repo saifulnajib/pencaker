@@ -32,7 +32,7 @@ class BaseCollection extends ResourceCollection
             'last_page' => $this->lastPage(),
             'per_page' => $this->perPage(),
             'count' => $this->count(),
-            'total' => $this->total(),
+            'last_row' => $this->total(),
         ];
     }
 }

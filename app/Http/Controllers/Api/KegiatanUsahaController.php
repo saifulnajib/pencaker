@@ -36,6 +36,7 @@ class KegiatanUsahaController extends ApiController
         $validator = Validator::make($input, [
             'nama_usaha' => 'required',
             'alamat' => 'required',
+            'alamat_penanggungjawab' => 'required',
             'id_sektor' => 'required',
             'nama_penanggungjawab' => 'required',
             'dokumen_lh' => 'required',
@@ -83,6 +84,7 @@ class KegiatanUsahaController extends ApiController
         $validator = Validator::make($input, [
             'nama_usaha' => 'required',
             'alamat' => 'required',
+            'alamat_penanggungjawab' => 'required',
             'id_sektor' => 'required',
             'nama_penanggungjawab' => 'required',
             'dokumen_lh' => 'required',
@@ -105,6 +107,7 @@ class KegiatanUsahaController extends ApiController
         $data->nama_usaha = $input['nama_usaha'];
         $data->nama_penanggungjawab = $input['nama_penanggungjawab'];
         $data->alamat = $input['alamat'];
+        $data->alamat_penanggungjawab = $input['alamat_penanggungjawab'];
         $data->id_sektor = $input['id_sektor'];
         $data->keterangan = $input['keterangan'] ?? '';
         $data->save();

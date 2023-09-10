@@ -16,10 +16,23 @@ class DataGridScope implements Scope
         $sort = request()->query('sort');
         $filter = request()->query('filter');
         if($filter) {
-            foreach($filter as $fn){
+            foreach($filter as $k=>$fn){
                 if($fn['value']) {
                     $fn['value'] = $fn['type'] == "like" ? '%'.$fn['value'].'%' : $fn['value'];
-                    $builder->where($fn['field'], $fn['type'], $fn['value']);
+                    if(str_contains($fn['field'], '.')){
+                        $relation = explode(".", $fn['field']);
+                        if($k == 0) {
+                            $builder->whereRelation($relation[0], $relation[1], $fn['type'], $fn['value']);
+                        } else {
+                            $builder->orWhereRelation($relation[0], $relation[1], $fn['type'], $fn['value']);
+                        }
+                    } else {
+                        if($k == 0) {
+                            $builder->where($fn['field'], $fn['type'], $fn['value']);
+                        } else {
+                            $builder->orWhere($fn['field'], $fn['type'], $fn['value']);
+                        }
+                    }
                 }
             }
         }

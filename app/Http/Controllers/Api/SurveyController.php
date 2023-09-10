@@ -17,7 +17,7 @@ class SurveyController extends ApiController
     public function index(Request $request): JsonResponse
     {
         $perPage = $request->query('size', 10);
-        $data = Survey::filter()->paginate($perPage);
+        $data = Survey::where('survey_type','skm')->filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, SurveyResource::class), 'Data retrieved successfully.');
     }
     
@@ -78,12 +78,23 @@ class SurveyController extends ApiController
     {
         $data = Survey::find($id);
 
-        if($data) {
-            $data->delete();
-        } else {
-            return $this->sendError('Unable to delete data. No matching record found');
+        try {
+            if($data) {
+                $data->delete();
+            } else {
+                return $this->sendError('Unable to delete data. No matching record found');
+            }
+            return $this->sendResponse([], 'Data deleted successfully.');
+        } catch (Exception $e)  {
+            if ($e instanceof \Illuminate\Database\QueryException) {
+                if ($e->errorInfo[1] === 1451) {
+                    return $this->sendError('Data ini digunakan pada data lainnya.');
+                } else {
+                    return $this->sendError('Data failed to delete.');
+                }
+            } else {
+                return $this->sendError('Data failed to delete.'.$e->getMessage());
+            }
         }
-
-        return $this->sendResponse([], 'Data deleted successfully.');
     }
 }

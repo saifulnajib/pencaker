@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Api;
 use Exception;
 use Validator;
 use App\Models\PemilahanSampah;
-use App\Models\Kendaraan;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\PemilahanSampahResource;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Controllers\Api\ApiController;
-use Pdf;
 
 class PemilahanSampahController extends ApiController
 {
@@ -103,17 +101,5 @@ class PemilahanSampahController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
-    }
-
-    public function print($tahun,$bulan)
-    {
-        $data['bulan'] = $bulan;
-        $data['tahun'] = $tahun;
-        $data['data'] = PemilahanSampah::with(['kendaraan'])->whereMonth('waktu_masuk', $bulan)->orderBy('waktu_masuk', 'ASC')->get();
-        $data['kendaraan'] = Kendaraan::where('is_active',1)->get();
-        // dd($data['kendaraan']);
-        $pdf = Pdf::loadView('print.pemilahan_sampah', $data);
-        return $pdf->setPaper('legal', 'portrait')->stream(); // preview pdf
-        //return $pdf->setPaper('legal', 'portrait')->download('sampah.pdf'); // direct download
     }
 }

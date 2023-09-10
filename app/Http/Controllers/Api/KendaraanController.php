@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use Validator;
+use Carbon\Carbon;
 use App\Models\Kendaraan;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Resources\KendaraanResource;
+use App\Exports\TrukSampahHarianExport;
+use App\Exports\TrukSampahBulananExport;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 
@@ -132,5 +137,81 @@ class KendaraanController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+    
+    public function exportTrukSampahHarian(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data_truk = Kendaraan::leftJoin('sampah', function($join) use ($tanggal) {
+                        $join->on('kendaraan.id', '=', 'sampah.id_kendaraan')
+                        ->whereDate('sampah.waktu_masuk', '=', $tanggal);
+                    })->with(['jenisKendaraan', 'ruteKendaraan', 'sampahMasuk' => function ($query) use ($tanggal) {
+                        $query->whereDate('waktu_masuk', $tanggal)->orderBy('waktu_masuk', 'asc');
+                    }])->select('kendaraan.*')->get();
+
+        $data = [
+            'data' => $data_truk,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($exportTime->translatedFormat('F')),
+            'ttd' => [
+                'lokasi' => "Tanjungpinang",
+                'waktu' => $exportTime->translatedFormat('d F Y'),
+                'jabatan' => "Kepala UPTD TPA",
+                'nama_pejabat' => "M. RIPAYANDI PUTRA, S.E",
+                'nip_pejabat' => "19731125 2000604 1 006",
+            ],
+        ];
+        
+        $export_name = "Laporan-truk-sampah-masuk-harian-$tanggal.xlsx";
+
+        return Excel::download(new TrukSampahHarianExport($data), $export_name);
+    }
+    
+    public function exportTrukSampahBulanan(Request $request)
+    {
+        $tahun = date('Y');
+        $bulan = date('m');
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tahun'))) {
+            $tahun = $request->query('tahun');
+        }
+        
+        if (!empty($request->query('bulan'))) {
+            $bulan = $request->query('bulan');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+        $dataTime = Carbon::parse("$tahun-$bulan-01")->locale('id-ID');
+                    
+        $data_truk = Kendaraan::with(['sampahMasuk' => function ($query) use ($bulan, $tahun) {
+            $query->whereMonth('sampah.waktu_masuk', '=', $bulan)
+            ->whereYear('sampah.waktu_masuk', '=', $tahun);
+        }])->get();
+
+        $data = [
+            'data' => $data_truk,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($dataTime->translatedFormat('F')),
+            'tahun' => $dataTime->translatedFormat('Y'),
+            'ttd' => [
+                'lokasi' => "Tanjungpinang",
+                'waktu' => $exportTime->translatedFormat('d F Y'),
+                'jabatan' => "Kepala UPTD TPA",
+                'nama_pejabat' => "M. RIPAYANDI PUTRA, S.E",
+                'nip_pejabat' => "19731125 2000604 1 006",
+            ],
+        ];
+        
+        $export_name = "Laporan-truk-sampah-masuk-bulan-".$data['bulan']."-".$data['tahun'].".xlsx";
+
+        return Excel::download(new TrukSampahBulananExport($data), $export_name);
     }
 }

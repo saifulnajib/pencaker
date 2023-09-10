@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\BankSampahResource;
+use App\Http\Resources\TitikKoordinatResource;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Controllers\Api\ApiController;
 
@@ -21,6 +22,12 @@ class BankSampahController extends ApiController
         $perPage = $request->query('size', 10);
         $data = BankSampah::filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, BankSampahResource::class), 'Data retrieved successfully.');
+    }
+    
+    public function pemetaan(Request $request): JsonResponse
+    {
+        $data = BankSampah::all();
+        return $this->sendResponse(TitikKoordinatResource::collection($data), 'Data retrieved successfully.');
     }
     
     public function store(Request $request): JsonResponse

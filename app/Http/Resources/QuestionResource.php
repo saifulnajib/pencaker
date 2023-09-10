@@ -20,6 +20,7 @@ class QuestionResource extends JsonResource
             'survey_id' => $this->survey_id,
             'survey_title' => $this->survey->title,
             'question_text' => $this->question_text,
+            'options' => $this->options,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

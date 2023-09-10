@@ -24,6 +24,7 @@ class PengawasanResource extends JsonResource
             'id_kegiatan_usaha' => $this->id_kegiatan_usaha,
             'kegiatan_usaha' => $this->kegiatanUsaha,
             'tindaklanjut_usaha' => $this->tindaklanjut_usaha,
+            'status_pengawasan' => $this->status_pengawasan,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -22,26 +22,37 @@ class KegiatanUsaha extends Model
     // public $incrementing    = false;
     protected $fillable = [
         'nama_usaha', 'nama_penanggungjawab',
-        'alamat', 'dokumen_lh', 'file_dokumen_lh',
+        'alamat', 'alamat_penanggungjawab', 'dokumen_lh', 'file_dokumen_lh',
         'id_sektor', 'keterangan',
     ];
 
     public function sektorKegiatan(){
         return $this->belongsTo(SektorKegiatanUsaha::class, 'id_sektor', 'id');
     }
-
+    
     public function pelaksanaanPengawasan(){
         return $this->hasMany(Pengawasan::class, 'id_kegiatan_usaha');
     }
-
-    protected function getPostThumbnailBySize(): String {
+    
+    protected function getCurrentStatus(): String {
+        $lastPelaksanaan = $this->pelaksanaanPengawasan()->latest('tanggal_pengawasan')->first();
+        return $lastPelaksanaan->status_pengawasan ?? null;
+    }
+    
+    protected function getListTanggalPengawasan(): String {
         $pelaksanaan = $this->pelaksanaanPengawasan()->pluck('tanggal_pengawasan')->implode(',');
         return $pelaksanaan;
     }
-
+    
     public function pelaksanaan(): Attribute {
         return Attribute::make(
-            get: fn () => $this->getPostThumbnailBySize(),
+            get: fn () => $this->getListTanggalPengawasan(),
+        );
+    }
+    
+    public function statusPengawasan(): Attribute {
+        return Attribute::make(
+            get: fn () => $this->getCurrentStatus(),
         );
     }
 }
