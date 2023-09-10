@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use Validator;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\LokasiPemantauan;
+use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\LokasiPemantauanResource;
 use App\Http\Resources\HasilPemantauanResource;
+use App\Exports\LokasiPemantauanBulananExport;
 
 class LokasiPemantauanController extends ApiController
 {
@@ -142,5 +146,36 @@ class LokasiPemantauanController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+    public function exportLokasiPemantauanBulanan(Request $request)
+    {
+        $tahun = date('Y');
+        $bulan = date('m');
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tahun'))) {
+            $tahun = $request->query('tahun');
+        }
+        
+        if (!empty($request->query('bulan'))) {
+            $bulan = $request->query('bulan');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+        $dataTime = Carbon::parse("$tahun-$bulan-01")->locale('id-ID');
+
+        $data_pantau = LokasiPemantauan::with(['kegiatanUsaha'])->whereMonth('tanggal_pemantauan',$bulan)->whereYear('tanggal_pemantauan',$tahun)->orderBy('tanggal_pemantauan','asc')->get();
+
+        $data = [
+            'data' => $data_pantau,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($dataTime->translatedFormat('F')),
+            'tahun' => $tahun,
+        ];
+
+        $export_name = "Laporan-bulanan-lokasi-pemantauan-".$data['bulan'].".xlsx";
+
+        return Excel::download(new LokasiPemantauanBulananExport($data), $export_name);
     }
 }
