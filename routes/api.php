@@ -89,5 +89,9 @@ Route::middleware('auth.jwt')->group( function () {
     Route::get('option/kegiatan-usaha', [KegiatanUsahaController::class, 'option']);
     Route::apiResource('pengawasan', PengawasanController::class);
 
+    Route::apiResource('pemetaan/tps', PemetaanTPSController::class);
+    Route::apiResource('pemetaan/sampah-liar', PemetaanTSLController::class);
+
     Route::apiResource('pemantauan/lokasi', LokasiPemantauanController::class);
+
 });
