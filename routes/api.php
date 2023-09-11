@@ -82,6 +82,7 @@ Route::get('export/lokasi_pemantauan_monthly', [LokasiPemantauanController::clas
 Route::get('export/pelaksanaan_pengawasan', [PengawasanController::class, 'exportPelaksanaanPengawasan']);
 Route::get('export/pelaksanaan_pengawasan_rinci', [PengawasanController::class, 'exportPelaksanaanPengawasanRinci']);
 Route::get('export/pengolahan_kompos_monthly', [PengolahanKomposController::class, 'exportPengolahanKomposBulanan']);
+Route::get('export/pemilahan_sampah_monthly', [PemilahanSampahController::class, 'exportPemilahanSampahBulanan']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
