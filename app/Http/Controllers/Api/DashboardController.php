@@ -10,6 +10,7 @@ use App\Models\PenyedotanTinja;
 use App\Models\SuratRetribusi;
 use App\Models\UsulanProklim;
 use App\Models\Kendaraan;
+use Spatie\Activitylog\Models\Activity;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -34,5 +35,15 @@ class DashboardController extends ApiController
             "kendaraan" => Kendaraan::all()->count() ?? 0,
         ];
         return $this->sendResponse(new DashboardResource($data), 'Data retrieved successfully.');
+    }
+
+
+
+    public function logs(Request $request): JsonResponse
+    {
+        $perPage = $request->query('size', 10);
+        $data = Activity::paginate($perPage);
+        // $logs = Activity::all();
+        return $this->sendResponse($data, 'Logs data retrieved successfully.');
     }
 }

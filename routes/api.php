@@ -141,6 +141,7 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('detil-jawaban-isu', DetilJawabanIsuController::class);
 
     Route::get('dashboard', [DashboardController::class, 'index']);
+    Route::get('logs', [DashboardController::class, 'logs']);
 
 
 });
