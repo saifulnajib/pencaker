@@ -5,10 +5,13 @@ namespace App\Models;
 use App\Models\Scopes\DataGridScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class JawabanIsu extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     public function scopeFilter($query)
     {
@@ -24,6 +27,12 @@ class JawabanIsu extends Model
         'opd',
         'token_opd',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->setDescriptionForEvent(fn(string $eventName) => "{$eventName} Data Jawaban Isu");
+    }
 
     public function penjaringan(){
         return $this->belongsTo(PenjaringanIsu::class, 'id_penjaringan_isu', 'id');

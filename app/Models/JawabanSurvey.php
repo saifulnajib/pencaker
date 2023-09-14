@@ -5,10 +5,13 @@ namespace App\Models;
 use App\Models\Scopes\DataGridScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class JawabanSurvey extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     public function scopeFilter($query)
     {
@@ -22,5 +25,11 @@ class JawabanSurvey extends Model
     protected $fillable = [
         'nama', 'email', 'jawaban',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->setDescriptionForEvent(fn(string $eventName) => "{$eventName} Data Jawaban Survey");
+    }
 
 }

@@ -5,10 +5,13 @@ namespace App\Models;
 use App\Models\Scopes\DataGridScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Kendaraan extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     public function scopeFilter($query)
     {
@@ -24,6 +27,12 @@ class Kendaraan extends Model
         'jenis_kendaraan', 'rute',
         'is_active'
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->setDescriptionForEvent(fn(string $eventName) => "{$eventName} Data Kendaraan");
+    }
 
     public function jenisKendaraan(){
         return $this->belongsTo(JenisKendaraan::class, 'jenis_kendaraan', 'id');

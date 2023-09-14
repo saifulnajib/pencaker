@@ -6,10 +6,13 @@ use App\Models\Scopes\DataGridScope;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class KegiatanUsaha extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     public function scopeFilter($query)
     {
@@ -25,6 +28,12 @@ class KegiatanUsaha extends Model
         'alamat', 'alamat_penanggungjawab', 'dokumen_lh', 'file_dokumen_lh',
         'id_sektor', 'keterangan',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->setDescriptionForEvent(fn(string $eventName) => "{$eventName} Data Kegiatan Usaha");
+    }
 
     public function sektorKegiatan(){
         return $this->belongsTo(SektorKegiatanUsaha::class, 'id_sektor', 'id');

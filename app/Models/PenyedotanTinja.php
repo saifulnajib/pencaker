@@ -5,10 +5,13 @@ namespace App\Models;
 use App\Models\Scopes\DataGridScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class PenyedotanTinja extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     public function scopeFilter($query)
     {
@@ -26,6 +29,12 @@ class PenyedotanTinja extends Model
         'retribusi_penyedotan', 'retribusi_pembuangan',
         'alamat', 'keterangan'
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->setDescriptionForEvent(fn(string $eventName) => "{$eventName} Data Penyedotan Tinja");
+    }
 
     public function kategoriPenyedotan(){
         return $this->belongsTo(KategoriPenyedotan::class, 'id_kategori', 'id');

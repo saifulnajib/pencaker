@@ -54,7 +54,7 @@ class AuthController extends ApiController
             $success['access_token'] = JWTAuth::fromUser($user);
             $success['token_type'] =  "bearer";
             $success['expires_in'] = auth('api')->factory()->getTTL() * 60;
-
+            activity()->event('logged in')->log('Pengguna masuk');
             return $this->sendResponse($success, 'User login successfully.');
         }
         else{
@@ -81,6 +81,7 @@ class AuthController extends ApiController
     public function logout()
     {
         auth()->logout();
+        activity()->event('logged in')->log('Pengguna keluar');
         return $this->sendResponse([], 'User logged out successfully.');
     }
 }
