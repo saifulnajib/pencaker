@@ -33,6 +33,7 @@ use App\Http\Controllers\Api\DimensiIsuController;
 use App\Http\Controllers\Api\IsuController;
 use App\Http\Controllers\Api\JawabanIsuController;
 use App\Http\Controllers\Api\DetilJawabanIsuController;
+use App\Http\Controllers\Api\PengaduanController;
 
 use App\Http\Controllers\Api\DashboardController;
 
@@ -59,6 +60,7 @@ Route::post('form-skrd', [SuratRetribusiController::class, 'store']);
 Route::post('form-bank-sampah', [BankSampahController::class, 'store']);
 Route::post('form-proklim', [UsulanProklimController::class, 'store']);
 Route::get('active-questioner', [PenjaringanIsuController::class, 'availableQuestioner']);
+Route::post('form-pengaduan', [PengaduanController::class, 'store']);
 
 Route::controller(AuthController::class)->group(function(){
     Route::post('register', 'register');
@@ -142,6 +144,9 @@ Route::middleware('auth.jwt')->group( function () {
 
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('logs', [DashboardController::class, 'logs']);
+
+    Route::apiResource('pengaduan', PengaduanController::class);
+
 
 
 });
