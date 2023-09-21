@@ -62,6 +62,8 @@ Route::post('form-proklim', [UsulanProklimController::class, 'store']);
 Route::get('active-questioner', [PenjaringanIsuController::class, 'availableQuestioner']);
 Route::post('form-pengaduan', [PengaduanController::class, 'store']);
 
+Route::get('skm/hitung', [QuestionController::class, 'hitung']);
+
 Route::controller(AuthController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('login', 'login');
