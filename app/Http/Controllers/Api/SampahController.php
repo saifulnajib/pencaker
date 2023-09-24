@@ -43,7 +43,7 @@ class SampahController extends ApiController
 
         $validator = Validator::make($input, [
             'id_kendaraan' => 'required',
-            'id_jenis_sampah' => 'required',
+            // 'id_jenis_sampah' => 'required',
             'nomor_karcis' => 'required',
             'waktu_masuk' => 'required',
             // 'waktu_keluar' => 'required',
@@ -60,6 +60,7 @@ class SampahController extends ApiController
             $input['berat_sampah'] = (!empty($input['berat_keluar'])) ? ($input['berat_masuk'] - $input['berat_keluar']) : 0;
             $input['volume'] = ($input['berat_sampah'] / 1000) * 4;
             $input['tarif_retribusi'] = ($input['jenis_retribusi'] == "umum") ? 5000 : 0;
+            $input['id_jenis_sampah'] = 1;
 
             $data = Sampah::create($input);
 
@@ -100,7 +101,7 @@ class SampahController extends ApiController
 
         $validator = Validator::make($input, [
             'id_kendaraan' => 'required',
-            'id_jenis_sampah' => 'required',
+            // 'id_jenis_sampah' => 'required',
             'nomor_karcis' => 'required',
             'waktu_masuk' => 'required',
             'waktu_keluar' => 'required',
@@ -116,7 +117,7 @@ class SampahController extends ApiController
         $data = Sampah::find($id);
 
         $data->id_kendaraan = $input['id_kendaraan'];
-        $data->id_jenis_sampah = $input['id_jenis_sampah'];
+        $data->id_jenis_sampah = 1;
         $data->nomor_bak = $input['nomor_bak'];
         $data->nomor_karcis = $input['nomor_karcis'];
         $data->waktu_masuk = $input['waktu_masuk'];
