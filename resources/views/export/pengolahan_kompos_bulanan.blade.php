@@ -16,22 +16,19 @@
     <body>
         <table>
             <tr>
-                <td colspan="10" style="text-align: center;text-transform:uppercase;">
+                <td colspan="5" style="text-align: center;text-transform:uppercase;">
                     <b>REKAPITULASI DATA PENGOLAHAN BAHAN KOMPOS</b>
                 </td>
             </tr>
             <tr>
-                <td colspan="10" style="text-align: center;text-transform:uppercase;">
+                <td colspan="5" style="text-align: center;text-transform:uppercase;">
                     <b>UNIT PELAKSANA TEKNIS DAERAH (UPTD) TPA</b>
                 </td>
             </tr>
             <tr>
-                <td colspan="10" style="text-align: center;text-transform:uppercase;">
+                <td colspan="5" style="text-align: center;text-transform:uppercase;">
                     <b>KOTA TANJUNGPINANG</b>
                 </td>
-            </tr>
-            <tr>
-                <td></td>
             </tr>
         </table>
         <table>
@@ -49,51 +46,25 @@
             width="100%">
             <thead>
                 <tr>
-                    <th rowspan="2" style="background-color:#fcf6bd;border-left: 1px solid #333;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
+                    <th style="background-color:#fcf6bd;border-left: 1px solid #333;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
                         height="15" align="center" valign="center" width="10">
                         <b>NO</b>
                     </th>
-                    <th rowspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
-                        align="center" valign="center" width="15">
+                    <th style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
+                        align="center" valign="center" width="20">
                         <b>TANGGAL</b>
                     </th>
-                    <th rowspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
-                        align="center" valign="center" width="15">
-                        <b>NOPOL KENDARAAN</b>
-                    </th>
-                    <th colspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
-                        align="center" valign="center">
-                        <b>JAM</b>
-                    </th>
-                    <th rowspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
+                    <th style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
                         align="center" valign="center" width="20">
-                        <b>BERAT MASUK (Kg)</b>
-                    </th>
-                    <th rowspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
-                        align="center" valign="center" width="20">
-                        <b>BERAT KELUAR (Kg)</b>
-                    </th>
-                    <th rowspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
-                        align="center" valign="center">
                         <b>BERAT ISI (Kg)</b>
                     </th>
-                    <th rowspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
-                        align="center" valign="center" width="10">
+                    <th style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
+                        align="center" valign="center" width="20">
                         <b>KOMPOS KELUAR (Kg)</b>
                     </th>
-                    <th rowspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
-                        align="center" valign="center" width="10">
-                        <b>KET</b>
-                    </th>
-                </tr>
-                <tr>
                     <th style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
-                        align="center" valign="center" width="10">
-                        <b>MASUK</b>
-                    </th>
-                    <th style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
-                        align="center" valign="center" width="10">
-                        <b>KELUAR</b>
+                        align="center" valign="center" width="35">
+                        <b>KET(TUJUAN)</b>
                     </th>
                 </tr>
             </thead>
@@ -116,31 +87,6 @@
                                 <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
                                     valign="center" align="center">
                                     {{ $value['tanggal'] }}
-                                </td>
-
-                                <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                    valign="center" align="center">
-                                    {{$val['kendaraan']['nopol']}}
-                                </td>
-
-                                <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                    valign="center" align="center">
-                                   {{ $carbon::parse($val['waktu_masuk'])->locale('id-ID')->translatedFormat('H:i')}}
-                                </td>
-
-                                <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                    valign="center" align="center">
-                                    {{$carbon::parse($val['waktu_keluar'])->locale('id-ID')->translatedFormat('H:i')}}
-                                </td>
-
-                                <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                    valign="center" align="center">
-                                    {{$val['berat_masuk']}}
-                                </td>
-
-                                <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                    valign="center" align="center">
-                                    {{$val['berat_keluar']}}
                                 </td>
 
                                 <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
@@ -185,47 +131,13 @@
                                 valign="center" align="center">
                                 
                             </td>
-
-                            <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                valign="center" align="center">
-                                
-                            </td>
-
-                            <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                valign="center" align="center">
-                                
-                            </td>
-
-                            <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                valign="center" align="right">
-                            
-                            </td>
-
-                            <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                valign="center" align="right">
-                                
-                            </td>
-
-                            <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                                valign="center" align="center">
-                            </td>
                         </tr>
                     @endif
                 @endforeach
                 <tr>
-                    <td colspan="5"style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
+                    <td colspan="2"style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
                         height="15" valign="center" align="center">
                        <b> JUMLAH </b>
-                    </td>
-
-                    <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                        valign="center" align="center">
-                       <b> {{$items['jumlah_masuk']}}  </b>
-                    </td>
-
-                    <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
-                        valign="center" align="center">
-                       <b> {{$items['jumlah_keluar']}}  </b>
                     </td>
 
                     <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
@@ -250,9 +162,6 @@
                 <td style="text-align: center;">Mengetahui</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td style="text-align: center;">{{ $items['ttd']['lokasi'] }}, {{ $items['ttd']['waktu'] }}</td>
                 <td></td>
                 <td></td>
@@ -262,17 +171,11 @@
                 <td style="text-align: center;">{{ $items['ttd']['jabatan'] }}</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td style="text-align: center;">Pengawas</td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -300,9 +203,6 @@
                     <b> {{ $items['ttd']['nama_pejabat'] }}</b></td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td style="text-align: center;">
                     <b>{{ $items['ttd']['nama_pengawas'] }}</b>
                 </td>
@@ -313,9 +213,6 @@
                 <td></td>
                 <td style="text-align: center;">
                     <b>NIP {{ $items['ttd']['nip_pejabat'] }}</b></td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td style="text-align: center;">
