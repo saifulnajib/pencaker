@@ -30,6 +30,7 @@ class UsulanProklimController extends ApiController
             'alamat' => 'required',
             'kode_wilayah' => 'required',
             'nama_ketua' => 'required',
+            'jumlah_anggota' => 'required',
         ]);
 
         if($validator->fails()){
@@ -77,6 +78,7 @@ class UsulanProklimController extends ApiController
             'kode_wilayah' => 'required',
             'nama_ketua' => 'required',
             'status_usulan' => 'required',
+            'jumlah_anggota' => 'required',
         ]);
 
         if($validator->fails()){
@@ -98,6 +100,7 @@ class UsulanProklimController extends ApiController
         $data->kode_wilayah = $input['kode_wilayah'];
         $data->nama_ketua = $input['nama_ketua'];
         $data->status_usulan = $input['status_usulan'];
+        $data->jumlah_anggota = $input['jumlah_anggota'];
         $data->save();
 
         return $this->sendResponse(new UsulanProklimResource($data), 'Data updated successfully.');

@@ -25,7 +25,7 @@ class UsulanProklim extends Model
     protected $fillable = [
         'nama', 'alamat',
         'kode_wilayah', 'nama_ketua',
-        'file_surat_usulan', 'status_usulan'
+        'file_surat_usulan', 'status_usulan','jumlah_anggota'
     ];
 
     public function getActivitylogOptions(): LogOptions
