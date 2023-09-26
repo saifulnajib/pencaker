@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Resources\KendaraanResource;
 use App\Exports\TrukSampahHarianExport;
 use App\Exports\TrukSampahBulananExport;
+use App\Exports\KpiHarianExport;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 
@@ -213,5 +214,58 @@ class KendaraanController extends ApiController
         $export_name = "Laporan-truk-sampah-masuk-bulan-".$data['bulan']."-".$data['tahun'].".xlsx";
 
         return Excel::download(new TrukSampahBulananExport($data), $export_name);
+    }
+
+
+    public function kpi(Request $request): JsonResponse
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $data = Kendaraan::withCount(['sampahMasuk as jumlah_trip'=> function($q) use($tanggal){
+            $q->whereDate('waktu_masuk', $tanggal);
+        },'sampahMasuk as total_berat_sampah'=> function($query) use($tanggal){
+            $query->select(DB::raw('SUM(berat_sampah)'))->whereDate('waktu_masuk', $tanggal);
+        }])
+        ->where('is_active', 1)->get();
+
+        return $this->sendResponse($data, 'Data retrieved successfully.');
+    }
+
+    public function exportKpiHarian(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data = Kendaraan::withCount(['sampahMasuk as jumlah_trip'=> function($q) use($tanggal){
+                    $q->whereDate('waktu_masuk', $tanggal);
+                },'sampahMasuk as total_berat_sampah'=> function($query) use($tanggal){
+                    $query->select(DB::raw('SUM(berat_sampah)'))->whereDate('waktu_masuk', $tanggal);
+                }])->where('is_active', 1)->get();
+
+        $data = [
+            'data' => $data,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($exportTime->translatedFormat('F')),
+            'ttd' => [
+                'lokasi' => "Tanjungpinang",
+                'waktu' => $exportTime->translatedFormat('d F Y'),
+                'jabatan' => "Kepala UPTD TPA",
+                'nama_pejabat' => "M. RIPAYANDI PUTRA, S.E",
+                'nip_pejabat' => "19731125 2000604 1 006",
+            ],
+        ];
+        
+        $export_name = "Laporan-kpi-harian-$tanggal.xlsx";
+
+        return Excel::download(new KpiHarianExport($data), $export_name);
     }
 }

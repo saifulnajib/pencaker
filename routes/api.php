@@ -81,6 +81,7 @@ Route::get('print/pengolahan-kompos/{tahun}/{bulan}', [PengolahanKomposControlle
 
 Route::get('export/sampah_daily', [SampahController::class, 'exportSampahHarian']);
 Route::get('export/pemungutan_daily', [SampahController::class, 'exportPemungutanHarian']);
+Route::get('export/kpi_daily', [KendaraanController::class, 'exportKpiHarian']);
 Route::get('export/truk_daily', [KendaraanController::class, 'exportTrukSampahHarian']);
 Route::get('export/truk_monthly', [KendaraanController::class, 'exportTrukSampahBulanan']);
 Route::get('export/sedot_tinja_monthly', [PenyedotanTinjaController::class, 'exportSedotTinjaBulanan']);
@@ -99,6 +100,7 @@ Route::middleware('auth.jwt')->group( function () {
     Route::get('option/rute', [RuteController::class, 'option']);
     Route::apiResource('kendaraan', KendaraanController::class);
     Route::get('option/kendaraan', [KendaraanController::class, 'option']);
+    Route::get('kpi', [KendaraanController::class, 'kpi']);
     Route::apiResource('jenis-sampah', JenisSampahController::class);
     Route::get('option/jenis-sampah', [JenisSampahController::class, 'option']);
     Route::apiResource('sampah', SampahController::class);
