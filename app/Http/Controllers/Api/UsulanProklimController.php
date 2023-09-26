@@ -30,6 +30,7 @@ class UsulanProklimController extends ApiController
             'alamat' => 'required',
             'kode_wilayah' => 'required',
             'nama_ketua' => 'required',
+            'nomor_telpon' => 'required',
             'jumlah_anggota' => 'required',
         ]);
 
@@ -77,6 +78,7 @@ class UsulanProklimController extends ApiController
             'alamat' => 'required',
             'kode_wilayah' => 'required',
             'nama_ketua' => 'required',
+            'nomor_telpon' => 'required',
             'status_usulan' => 'required',
             'jumlah_anggota' => 'required',
         ]);
@@ -99,6 +101,7 @@ class UsulanProklimController extends ApiController
         $data->alamat = $input['alamat'];
         $data->kode_wilayah = $input['kode_wilayah'];
         $data->nama_ketua = $input['nama_ketua'];
+        $data->nomor_telpon = $input['nomor_telpon'];
         $data->status_usulan = $input['status_usulan'];
         $data->jumlah_anggota = $input['jumlah_anggota'];
         $data->save();

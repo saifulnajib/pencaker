@@ -24,7 +24,7 @@ class UsulanProklim extends Model
     // public $incrementing    = false;
     protected $fillable = [
         'nama', 'alamat',
-        'kode_wilayah', 'nama_ketua',
+        'kode_wilayah', 'nama_ketua','nomor_telpon',
         'file_surat_usulan', 'status_usulan','jumlah_anggota'
     ];
 
