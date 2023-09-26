@@ -25,6 +25,12 @@ class PenyedotanTinjaResource extends JsonResource
             'tanggal_penyedotan' =>$this->tanggal_penyedotan,
             'retribusi_penyedotan' =>$this->retribusi_penyedotan,
             'retribusi_pembuangan' =>$this->retribusi_pembuangan,
+            'kendaraan' => [
+                'nopol' => $this->kendaraan->nopol,
+                'sopir' => $this->kendaraan->sopir,
+                'jenis_kendaraan' => $this->kendaraan->jenisKendaraan->jenis,
+                'rute' => $this->kendaraan->ruteKendaraan->rute,
+            ],
             'keterangan' =>$this->keterangan,
             'created_at' =>$this->created_at,
             'updated_at' =>$this->updated_at,

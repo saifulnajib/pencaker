@@ -50,6 +50,10 @@
                     </th>
                     <th rowspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
                         align="center" valign="center" width="20">
+                        <b>NOPOL</b>
+                    </th>
+                    <th rowspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
+                        align="center" valign="center" width="20">
                         <b>NAMA</b>
                     </th>
                     <th colspan="2" style="background-color:#fcf6bd;border-top:1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
@@ -110,6 +114,11 @@
 
                     <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
                         valign="center" align="center">
+                        {{ $value['kendaraan']['nopol'] }}
+                    </td>
+
+                    <td style="border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;"
+                        valign="center" align="center">
                         {{ $value['nama'] }}
                     </td>
 
@@ -159,7 +168,7 @@
                 </tr>
                 @endforeach
                 <tr>
-                    <td colspan="7"style="background-color:#80ed99;border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
+                    <td colspan="8"style="background-color:#80ed99;border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
                         height="15" valign="center" align="center">
                        <b> JUMLAH </b>
                     </td>
@@ -183,7 +192,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="7"style="background-color:#fcf6bd;border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
+                    <td colspan="8"style="background-color:#fcf6bd;border-top:1px solid #333;border-left: 1px solid #333;border-bottom: 1px solid #333;border-right:1px solid #333;word-wrap: break-word;"
                         height="15" valign="center" align="center">
                        <b> TOTAL </b>
                     </td>
@@ -214,6 +223,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td style="text-align: center;">{{ $items['ttd']['lokasi'] }}, {{ $items['ttd']['waktu'] }}</td>
                 <td></td>
                 <td></td>
@@ -228,11 +238,13 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td style="text-align: center;">Mengetahui</td>
                 <td></td>
                 <td></td>
             </tr>
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -270,6 +282,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td style="text-align: center;">
                     <b>{{ $items['ttd']['nama_pejabat'] }}</b>
                 </td>
@@ -277,6 +290,7 @@
                 <td></td>
             </tr>
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

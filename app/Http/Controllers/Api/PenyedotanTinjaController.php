@@ -21,7 +21,7 @@ class PenyedotanTinjaController extends ApiController
     public function index(Request $request): JsonResponse
     {
         $perPage = $request->query('size', 10);
-        $data = PenyedotanTinja::with(['kategoriPenyedotan'])->filter()->paginate($perPage);
+        $data = PenyedotanTinja::with(['kategoriPenyedotan','kendaraan'])->filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, PenyedotanTinjaResource::class), 'Data retrieved successfully.');
     }
     
@@ -72,6 +72,7 @@ class PenyedotanTinjaController extends ApiController
 
         $validator = Validator::make($input, [
             'id_kategori' => 'required',
+            'id_kendaraan' => 'required',
             'nama' => 'required',
             'nomor_karcis' => 'required|numeric',
             'nomor_telpon' => 'required|numeric',
@@ -89,6 +90,7 @@ class PenyedotanTinjaController extends ApiController
         $data = PenyedotanTinja::find($id);
 
         $data->id_kategori = $input['id_kategori'];
+        $data->id_kendaraan = $input['id_kendaraan'];
         $data->nama = $input['nama'];
         $data->nomor_karcis = $input['nomor_karcis'];
         $data->nomor_telpon = $input['nomor_telpon'];
@@ -132,7 +134,7 @@ class PenyedotanTinjaController extends ApiController
         $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
         $dataTime = Carbon::parse("$tahun-$bulan-01")->locale('id-ID');
 
-        $data_tinja = PenyedotanTinja::with(['kategoriPenyedotan'])->whereMonth('tanggal_penyedotan',$bulan)->whereYear('tanggal_penyedotan',$tahun)->get();
+        $data_tinja = PenyedotanTinja::with(['kategoriPenyedotan','kendaraan'])->whereMonth('tanggal_penyedotan',$bulan)->whereYear('tanggal_penyedotan',$tahun)->get();
 
         $data = [
             'data' => $data_tinja,

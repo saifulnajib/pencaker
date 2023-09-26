@@ -27,7 +27,7 @@ class PenyedotanTinja extends Model
         'nomor_karcis', 'nomor_telpon',
         'tanggal_penyedotan',
         'retribusi_penyedotan', 'retribusi_pembuangan',
-        'alamat', 'keterangan'
+        'alamat', 'keterangan','id_kendaraan'
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -38,5 +38,9 @@ class PenyedotanTinja extends Model
 
     public function kategoriPenyedotan(){
         return $this->belongsTo(KategoriPenyedotan::class, 'id_kategori', 'id');
+    }
+
+    public function kendaraan(){
+        return $this->belongsTo(Kendaraan::class, 'id_kendaraan', 'id');
     }
 }
