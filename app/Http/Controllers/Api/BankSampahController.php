@@ -41,6 +41,7 @@ class BankSampahController extends ApiController
             'latitude' => 'numeric',
             'longitude' => 'numeric',
             'status_pengajuan' => 'required',
+            'nomor_telpon' => 'required',
             'is_active' => 'required',
         ]);
 
@@ -90,6 +91,7 @@ class BankSampahController extends ApiController
             'latitude' => 'numeric',
             'longitude' => 'numeric',
             'status_pengajuan' => 'required',
+            'nomor_telpon' => 'required',
             'is_active' => 'required',
         ]);
 
@@ -114,6 +116,7 @@ class BankSampahController extends ApiController
         $data->latitude = $input['latitude'];
         $data->longitude = $input['longitude'];
         $data->status_pengajuan = $input['status_pengajuan'];
+        $data->nomor_telpon = $input['nomor_telpon'];
         $data->is_active = $input['is_active'];
         $data->save();
 

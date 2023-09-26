@@ -26,7 +26,7 @@ class BankSampah extends Model
         'nama', 'alamat',
         'kode_wilayah', 'file_surat_pengajuan',
         'latitude', 'longitude',
-        'status_pengajuan', 'is_active'
+        'status_pengajuan', 'nomor_telpon', 'is_active'
     ];
 
     public function getActivitylogOptions(): LogOptions
