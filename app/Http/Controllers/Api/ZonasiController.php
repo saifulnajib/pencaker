@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use Validator;
+use Carbon\Carbon;
 use App\Models\Zonasi;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\ZonasiResource;
+use App\Exports\ZonasiBulananExport;
 
 class ZonasiController extends ApiController
 {
@@ -114,5 +118,50 @@ class ZonasiController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+    public function exportZonasiBulanan(Request $request)
+    {
+        $tahun = date('Y');
+        $bulan = date('m');
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tahun'))) {
+            $tahun = $request->query('tahun');
+        }
+        
+        if (!empty($request->query('bulan'))) {
+            $bulan = $request->query('bulan');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+        $dataTime = Carbon::parse("$tahun-$bulan-01")->locale('id-ID');
+        $is_semua = false;           
+        // $data = Zonasi::whereMonth('created_at',$bulan)->whereYear('created_at',$tahun)->get();
+        if (empty($request->query('bulan'))){
+            $data = Zonasi::all();
+            $is_semua = true;
+        }else{
+            $data = Zonasi::whereMonth('created_at',$bulan)->whereYear('created_at',$tahun)->get();
+        }
+
+        $data = [
+            'data' => $data,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($dataTime->translatedFormat('F')),
+            'tahun' => $dataTime->translatedFormat('Y'),
+            'is_semua' => $is_semua,
+            'ttd' => [
+                'lokasi' => "Tanjungpinang",
+                'waktu' => $exportTime->translatedFormat('d F Y'),
+                'jabatan' => "Kepala UPTD TPA",
+                'nama_pejabat' => "M. RIPAYANDI PUTRA, S.E",
+                'nip_pejabat' => "19731125 2000604 1 006",
+            ],
+        ];
+        
+        $export_name = "Data-zonasi-bulan-".$data['bulan']."-".$data['tahun'].".xlsx";
+
+        return Excel::download(new ZonasiBulananExport($data), $export_name);
     }
 }
