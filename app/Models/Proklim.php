@@ -26,7 +26,8 @@ class Proklim extends Model
         'nama', 'id_kategori', 'alamat',
         'no_registrasi', 'tahun_proklim',
         'kode_wilayah', 'file_sertifikat',
-        'latitude', 'longitude', 'is_active'
+        'latitude', 'longitude','ketua','jumlah_anggota',
+        'fokus_daerah','nomor_sk', 'is_active'
     ];
 
     public function getActivitylogOptions(): LogOptions

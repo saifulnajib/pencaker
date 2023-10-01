@@ -92,6 +92,7 @@ Route::get('export/pengolahan_kompos_monthly', [PengolahanKomposController::clas
 Route::get('export/pemilahan_sampah_monthly', [PemilahanSampahController::class, 'exportPemilahanSampahBulanan']);
 Route::get('export/zonasi_monthly', [ZonasiController::class, 'exportZonasiBulanan']);
 Route::get('export/pertek', [KegiatanUsahaController::class, 'exportPertek']);
+Route::get('export/proklim', [ProklimController::class, 'exportProklim']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
