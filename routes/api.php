@@ -36,6 +36,7 @@ use App\Http\Controllers\Api\DetilJawabanIsuController;
 use App\Http\Controllers\Api\PengaduanController;
 use App\Http\Controllers\Api\SuratKeringananController;
 use App\Http\Controllers\Api\SanksiController;
+use App\Http\Controllers\Api\PengelolaanLimbahController;
 
 use App\Http\Controllers\Api\DashboardController;
 
@@ -95,6 +96,7 @@ Route::get('export/zonasi_monthly', [ZonasiController::class, 'exportZonasiBulan
 Route::get('export/pertek', [KegiatanUsahaController::class, 'exportPertek']);
 Route::get('export/proklim', [ProklimController::class, 'exportProklim']);
 Route::get('export/sanksi', [SanksiController::class, 'exportSanksi']);
+Route::get('export/pengelolaan_limbah', [PengelolaanLimbahController::class, 'exportPengelolaanLimbah']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
@@ -159,6 +161,7 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('pengaduan', PengaduanController::class);
     Route::apiResource('surat-keringanan', SuratKeringananController::class);
     Route::apiResource('sanksi', SanksiController::class);
+    Route::apiResource('pengelolaan-limbah', PengelolaanLimbahController::class);
 
 
 

@@ -64,4 +64,8 @@ class KegiatanUsaha extends Model
             get: fn () => $this->getCurrentStatus(),
         );
     }
+
+    public function pengelolaanLimbah(){
+        return $this->hasMany(PengelolaanLimbah::class, 'id_kegiatan_usaha');
+    }
 }
