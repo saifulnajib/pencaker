@@ -26,7 +26,7 @@ class KegiatanUsaha extends Model
     protected $fillable = [
         'nama_usaha', 'nama_penanggungjawab',
         'alamat', 'alamat_penanggungjawab', 'dokumen_lh', 'file_dokumen_lh',
-        'id_sektor', 'keterangan',
+        'id_sektor', 'keterangan','tanggal_pertek', 'nomor_pertek'
     ];
 
     public function getActivitylogOptions(): LogOptions

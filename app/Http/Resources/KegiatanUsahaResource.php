@@ -25,6 +25,8 @@ class KegiatanUsahaResource extends JsonResource
             'id_sektor' => $this->id_sektor,
             'sektor_kegiatan' => $this->sektorKegiatan->sektor,
             'keterangan' => $this->keterangan,
+            'tanggal_pertek' => $this->tanggal_pertek,
+            'nomor_pertek' => $this->nomor_pertek,
             'pelaksanaan_pengawasan' => $this->pelaksanaan,
             'status_pengawasan' => $this->statusPengawasan,
             'created_at' => $this->created_at,

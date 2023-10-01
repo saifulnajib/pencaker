@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use Validator;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\KegiatanUsaha;
 use Illuminate\Http\JsonResponse;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\KegiatanUsahaResource;
+use App\Exports\PertekExport;
 
 class KegiatanUsahaController extends ApiController
 {
@@ -18,7 +22,10 @@ class KegiatanUsahaController extends ApiController
     public function index(Request $request): JsonResponse
     {
         $perPage = $request->query('size', 10);
-        $data = KegiatanUsaha::with(['sektorKegiatan'])->filter()->paginate($perPage);
+        $pertek  = $request->query('pertek',0);
+        $data = KegiatanUsaha::with(['sektorKegiatan'])->when($pertek, function ($query) {
+            $query->where('nomor_pertek','!=',null);
+        })->filter()->paginate($perPage);
         return $this->sendResponse(new BaseCollection($data, KegiatanUsahaResource::class), 'Data retrieved successfully.');
     }
 
@@ -110,6 +117,8 @@ class KegiatanUsahaController extends ApiController
         $data->alamat_penanggungjawab = $input['alamat_penanggungjawab'];
         $data->id_sektor = $input['id_sektor'];
         $data->keterangan = $input['keterangan'] ?? '';
+        $data->tanggal_pertek = $input['tanggal_pertek'];
+        $data->nomor_pertek = $input['nomor_pertek'];
         $data->save();
 
         return $this->sendResponse(new KegiatanUsahaResource($data), 'Data updated successfully.');
@@ -126,5 +135,31 @@ class KegiatanUsahaController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+    public function exportPertek(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        $data = KegiatanUsaha::with(['sektorKegiatan'])->where('nomor_pertek','!=',null)->get();
+
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data = [
+            'data' => $data,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'ttd' => [
+                'lokasi' => "Tanjungpinang",
+                'waktu' => $exportTime->translatedFormat('d F Y'),
+                'jabatan' => "Kepala Dinas Lingkungan Hidup",
+                'nama_pejabat' => "Drs. Riono, M.Si",
+                'nip_pejabat' => "19670416 199401 1 001",
+            ],
+        ];
+        
+        $export_name = "Data-Pertek.xlsx";
+
+        return Excel::download(new PertekExport($data), $export_name);
     }
 }
