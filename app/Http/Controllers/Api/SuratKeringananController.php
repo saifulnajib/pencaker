@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use Validator;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use App\Models\SuratKeringanan;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Resources\SuratKeringananResource;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Controllers\Api\ApiController;
+use App\Exports\SuratKeringananExport;
 
 class SuratKeringananController extends ApiController
 {
@@ -126,5 +130,28 @@ class SuratKeringananController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+    public function exportSuratKeringanan(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data = SuratKeringanan::all();
+
+        $data = [
+            'data' => $data,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($exportTime->translatedFormat('F')),
+        ];
+        
+        $export_name = "Data-surat-keringanan-$tanggal.xlsx";
+
+        return Excel::download(new SuratKeringananExport($data), $export_name);
     }
 }
