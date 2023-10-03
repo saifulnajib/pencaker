@@ -39,6 +39,7 @@ use App\Http\Controllers\Api\SanksiController;
 use App\Http\Controllers\Api\PengelolaanLimbahController;
 use App\Http\Controllers\Api\PegawaiController;
 use App\Http\Controllers\Api\RiwayatKgbController;
+use App\Http\Controllers\Api\RiwayatCutiController;
 
 use App\Http\Controllers\Api\DashboardController;
 
@@ -102,6 +103,7 @@ Route::get('export/pengelolaan_limbah', [PengelolaanLimbahController::class, 'ex
 Route::get('export/pegawai_pns', [PegawaiController::class, 'exportPegawaiPns']);
 Route::get('export/pegawai_honorer', [PegawaiController::class, 'exportPegawaiHonorer']);
 Route::get('export/riwayat_kgb', [RiwayatKgbController::class, 'exportRiwayatKgb']);
+Route::get('export/riwayat_cuti', [RiwayatCutiController::class, 'exportRiwayatCuti']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
@@ -170,6 +172,7 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('pegawai', PegawaiController::class);
     Route::get('option/pegawai', [PegawaiController::class, 'option']);
     Route::apiResource('riwayat-kgb', RiwayatKgbController::class);
+    Route::apiResource('riwayat-cuti', RiwayatCutiController::class);
 
 
 

@@ -37,7 +37,7 @@ class PegawaiController extends ApiController
      */
     public function option(Request $request): JsonResponse
     {
-        $data = Pegawai::select('id', DB::raw("CONCAT(nama,' - ',nip) as name"))->where('jenis_pegawai', 'PNS')->latest('updated_at')->get();
+        $data = Pegawai::select('id', DB::raw("CONCAT(nama,' - ',nip) as name"))->latest('updated_at')->get();
         return $this->sendResponse($data, 'Data retrieved successfully.');
     }
 
