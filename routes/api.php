@@ -111,6 +111,7 @@ Route::get('export/surat_keringanan', [SuratKeringananController::class, 'export
 Route::get('export/surat_retribusi', [SuratRetribusiController::class, 'exportSuratRetribusi']);
 Route::get('export/pengaduan', [PengaduanController::class, 'exportPengaduan']);
 Route::get('export/usulan_proklim', [UsulanProklimController::class, 'exportUsulanProklim']);
+Route::get('export/isu', [IsuController::class, 'exportIsu']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);

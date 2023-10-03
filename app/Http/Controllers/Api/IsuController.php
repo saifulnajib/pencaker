@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use Validator;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use App\Models\Isu;
 use App\Models\JawabanIsu;
 use App\Models\DetilJawabanIsu;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\IsuResource;
+use App\Exports\IsuExport;
 
 class IsuController extends ApiController
 {
@@ -172,5 +176,28 @@ class IsuController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+    public function exportIsu(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data = Isu::with(['dimensi'])->get();
+
+        $data = [
+            'data' => $data,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($exportTime->translatedFormat('F')),
+        ];
+        
+        $export_name = "Data-Isu-$tanggal.xlsx";
+
+        return Excel::download(new IsuExport($data), $export_name);
     }
 }
