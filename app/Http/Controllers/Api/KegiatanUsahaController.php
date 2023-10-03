@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\KegiatanUsahaResource;
 use App\Exports\PertekExport;
+use App\Exports\KegiatanUsahaExport;
 
 class KegiatanUsahaController extends ApiController
 {
@@ -161,5 +162,28 @@ class KegiatanUsahaController extends ApiController
         $export_name = "Data-Pertek.xlsx";
 
         return Excel::download(new PertekExport($data), $export_name);
+    }
+
+    public function exportKegiatanUsaha(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data = KegiatanUsaha::with(['sektorKegiatan'])->get();
+
+        $data = [
+            'data' => $data,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($exportTime->translatedFormat('F')),
+        ];
+        
+        $export_name = "Data-kegiatan-usaha-$tanggal.xlsx";
+
+        return Excel::download(new KegiatanUsahaExport($data), $export_name);
     }
 }
