@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use Validator;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use App\Models\UsulanProklim;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Resources\UsulanProklimResource;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Controllers\Api\ApiController;
+use App\Exports\UsulanProklimExport;
 
 class UsulanProklimController extends ApiController
 {
@@ -120,5 +124,28 @@ class UsulanProklimController extends ApiController
         }
 
         return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+    public function exportUsulanProklim(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data = UsulanProklim::all();
+
+        $data = [
+            'data' => $data,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($exportTime->translatedFormat('F')),
+        ];
+        
+        $export_name = "Data-Usulan-Proklim-$tanggal.xlsx";
+
+        return Excel::download(new UsulanProklimExport($data), $export_name);
     }
 }
