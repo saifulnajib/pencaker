@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Resources\KendaraanResource;
 use App\Exports\TrukSampahHarianExport;
 use App\Exports\TrukSampahBulananExport;
+use App\Exports\KendaraanExport;
 use App\Exports\KpiHarianExport;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
@@ -267,5 +268,28 @@ class KendaraanController extends ApiController
         $export_name = "Laporan-kpi-harian-$tanggal.xlsx";
 
         return Excel::download(new KpiHarianExport($data), $export_name);
+    }
+
+    public function exportKendaraan(Request $request)
+    {
+        $tanggal = date('Y-m-d');
+
+        if (!empty($request->query('tanggal'))) {
+            $tanggal = $request->query('tanggal');
+        }
+
+        $exportTime = Carbon::parse("$tanggal")->locale('id-ID');
+
+        $data = Kendaraan::with(['jenisKendaraan','ruteKendaraan'])->where('is_active', 1)->get();
+
+        $data = [
+            'data' => $data,
+            'time' => $exportTime->translatedFormat('l / d F Y'),
+            'bulan' => Str::upper($exportTime->translatedFormat('F')),
+        ];
+        
+        $export_name = "Data-kendaraan-$tanggal.xlsx";
+
+        return Excel::download(new KendaraanExport($data), $export_name);
     }
 }
