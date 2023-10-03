@@ -108,6 +108,7 @@ Route::get('export/kendaraan', [KendaraanController::class, 'exportKendaraan']);
 Route::get('export/kegiatan_usaha', [KegiatanUsahaController::class, 'exportKegiatanUsaha']);
 Route::get('export/bank_sampah', [BankSampahController::class, 'exportBankSampah']);
 Route::get('export/surat_keringanan', [SuratKeringananController::class, 'exportSuratKeringanan']);
+Route::get('export/surat_retribusi', [SuratRetribusiController::class, 'exportSuratRetribusi']);
 
 Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('jenis-kendaraan', JenisKendaraanController::class);
