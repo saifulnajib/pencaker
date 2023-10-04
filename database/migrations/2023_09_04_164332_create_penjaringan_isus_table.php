@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('penjaringan_isu', function (Blueprint $table) {
             $table->id();
             $table->text('file_banner')->nullable();
-            $table->timestamp('started_at');
-            $table->timestamp('closed_at');
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('closed_at')->nullable();
             $table->timestamps();
         });
     }
