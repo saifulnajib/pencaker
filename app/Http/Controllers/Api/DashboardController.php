@@ -42,7 +42,7 @@ class DashboardController extends ApiController
     public function logs(Request $request): JsonResponse
     {
         $perPage = $request->query('size', 10);
-        $data = Activity::paginate($perPage);
+        $data = Activity::with(['causer'])->paginate($perPage);
         // $logs = Activity::all();
         return $this->sendResponse($data, 'Logs data retrieved successfully.');
     }
