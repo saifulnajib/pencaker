@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-use App\Casts\EncryptCast;
-use Illuminate\Support\Facades\Crypt;
 
-class BankSampah extends Model
+class Group extends Model
 {
     use HasFactory;
     use LogsActivity;
@@ -20,23 +18,17 @@ class BankSampah extends Model
         return (new DataGridScope())->apply($query, $this);
     }
 
-    protected $table        = 'bank_sampah';
+    protected $table        = 'groups';
     protected $primaryKey   = 'id';
     // protected $keyType      = 'string';
     // public $incrementing    = false;
     protected $fillable = [
-        'nama', 'alamat',
-        'kode_wilayah', 'file_surat_pengajuan',
-        'latitude', 'longitude',
-        'status_pengajuan', 'nomor_telpon', 'is_active'
-    ];
-    protected $casts = [
-        'nama' => EncryptCast::class,
+        'name', 'deskripsi', 'is_active'
     ];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->setDescriptionForEvent(fn(string $eventName) => "{$eventName} Data Bank Sampah");
+        ->setDescriptionForEvent(fn(string $eventName) => "{$eventName} Data Group Pengguna");
     }
 }
