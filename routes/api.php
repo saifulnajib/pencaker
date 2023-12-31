@@ -41,6 +41,7 @@ use App\Http\Controllers\Api\PegawaiController;
 use App\Http\Controllers\Api\RiwayatKgbController;
 use App\Http\Controllers\Api\RiwayatCutiController;
 use App\Http\Controllers\Api\GroupController;
+use App\Http\Controllers\Api\ModuleController;
 
 use App\Http\Controllers\Api\DashboardController;
 
@@ -184,6 +185,8 @@ Route::middleware('auth.jwt')->group( function () {
     Route::apiResource('riwayat-cuti', RiwayatCutiController::class);
     Route::apiResource('group', GroupController::class);
     Route::get('option/group', [GroupController::class, 'option']);
+    Route::apiResource('module', ModuleController::class);
+    Route::get('option/module', [ModuleController::class, 'option']);
 
 
 
