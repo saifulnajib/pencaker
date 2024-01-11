@@ -6,6 +6,9 @@ use Exception;
 use Validator;
 use Illuminate\Http\Request;
 use App\Models\Group;
+use App\Models\Module;
+use App\Models\Acls;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
@@ -56,7 +59,26 @@ class GroupController extends ApiController
             return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
 
-        $data = Group::create($input);
+       
+        DB::beginTransaction();
+        try {
+            $data = Group::create($input);
+            $group_id = $data->id;
+            $modules = Module::select('id')->get();
+            $acls = [];
+            foreach($modules as $key=>&$val){
+                $acls[$key] = array(
+                    "module_id" => $val['id'],
+                    "group_id" => $group_id,
+                );
+            }
+            $create_acl = Acls::insert($acls);
+            DB::commit();
+            $create = true;
+        } catch(\Exception $e) {
+            DB::rollback();
+            $create = false;
+        }
 
         return $this->sendResponse(new GroupResource($data), 'Data created successfully.');
     }

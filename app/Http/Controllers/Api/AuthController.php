@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use JWTAuth;
 use Validator;
 use App\Models\User;
+use App\Models\UserGroup;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,7 @@ class AuthController extends ApiController
             'email' => 'required|email',
             'password' => 'required',
             'c_password' => 'required|same:password',
+            'group_id' => 'required|numeric'
         ]);
 
         if($validator->fails()){
@@ -38,6 +40,10 @@ class AuthController extends ApiController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
+
+        $user_id = $user->id;
+        $group = ['user_id'=>$user_id,'group_id'=>$input['group_id']];
+        $userGroup = UserGroup::create($group);
 
         return $this->sendResponse($user, 'User register successfully.');
     }
