@@ -57,8 +57,11 @@ use App\Http\Controllers\Api\DashboardController;
 */
 
 Route::get('', function(){
-    return response()->json(["status" => true, "message" => "Hello from SIMLH APIv1"], 200);
+    return response()->json(["status" => true, "message" => "Hello from Pencaker APIv1"], 200);
 });
+
+
+Route::apiResource('loker', JenisKendaraanController::class);
 
 Route::get('skm', [QuestionController::class, 'survey']);
 Route::post('skm', [QuestionController::class, 'postAnswer']);
