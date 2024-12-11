@@ -21,7 +21,7 @@ class Loker extends Model
     protected $table        = 'lokers';
     protected $primaryKey   = 'id';
     // protected $keyType      = 'string';
-    // public $incrementing    = false;
+    // public $incrementing    = false;s
     protected $fillable = [
         'id_perusahaan', 'posisi',
         'deskripsi', 'kualifikasi',
