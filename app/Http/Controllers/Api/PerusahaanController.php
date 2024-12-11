@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Api;
 use Exception;
 use Validator;
 use Illuminate\Http\Request;
-use App\Models\Loker;
 use App\Models\Perusahaan;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
-use App\Http\Resources\LokerResource;
+use App\Http\Resources\PerusahaanResource;
 
-class LokerController extends ApiController
+class PerusahaanController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -22,8 +21,8 @@ class LokerController extends ApiController
     public function index(Request $request): JsonResponse
     {
         $perPage = request()->query('size', 10);
-        $data = Loker::filter()->paginate($perPage);
-        return $this->sendResponse(new BaseCollection($data, LokerResource::class), 'Data retrieved successfully.');
+        $data = Perusahaan::filter()->paginate($perPage);
+        return $this->sendResponse(new BaseCollection($data, PerusahaanResource::class), 'Data retrieved successfully.');
     }
 
     /**
@@ -31,6 +30,11 @@ class LokerController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    public function option(Request $request): JsonResponse
+    {
+        $data = Perusahaan::select('id', 'name')->where('is_active', 1)->latest('updated_at')->get();
+        return $this->sendResponse($data, 'Data retrieved successfully.');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -43,13 +47,10 @@ class LokerController extends ApiController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'id_perusahaan' => 'required',
-            'posisi' => 'required',
-            'deskripsi' => 'required',
-            'kualifikasi' => 'required',
-            'lokasi' => 'required',
-            'gaji' => 'required',
-            'expired' => 'required',
+            'name' => 'required',
+            'alamat' => 'required',
+            'telp' => 'required',
+            'email' => 'required',
             'is_active' => 'required'
         ]);
 
@@ -57,9 +58,9 @@ class LokerController extends ApiController
             return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
 
-        $data = Loker::create($input);
+        $data = Perusahaan::create($input);
 
-        return $this->sendResponse(new LokerResource($data), 'Data created successfully.');
+        return $this->sendResponse(new PerusahaanResource($data), 'Data created successfully.');
     }
 
     /**
@@ -70,13 +71,13 @@ class LokerController extends ApiController
      */
     public function show($id): JsonResponse
     {
-        $data = Loker::find($id);
+        $data = Perusahaan::find($id);
 
         if (is_null($data)) {
             return $this->sendError('Data not found.');
         }
 
-        return $this->sendResponse(new LokerResource($data), 'Data retrieved successfully.');
+        return $this->sendResponse(new PerusahaanResource($data), 'Data retrieved successfully.');
     }
 
     /**
@@ -91,13 +92,10 @@ class LokerController extends ApiController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'id_perusahaan' => 'required',
-            'posisi' => 'required',
-            'deskripsi' => 'required',
-            'kualifikasi' => 'required',
-            'lokasi' => 'required',
-            'gaji' => 'required',
-            'expired' => 'required',
+            'name' => 'required',
+            'alamat' => 'required',
+            'telp' => 'required',
+            'email' => 'required',
             'is_active' => 'required'
         ]);
 
@@ -105,19 +103,16 @@ class LokerController extends ApiController
             return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
 
-        $data = Loker::find($id);
+        $data = Perusahaan::find($id);
 
-        $data->id_perusahaan = $input['id_perusahaan'];
-        $data->posisi = $input['posisi'];
-        $data->deskripsi = $input['deskripsi'];
-        $data->kualifikasi = $input['kualifikasi'];
-        $data->lokasi = $input['lokasi'];
-        $data->gaji = $input['gaji'];
-        $data->expired = $input['expired'];
+        $data->name = $input['name'];
+        $data->alamat = $input['alamat'];
+        $data->telp = $input['telp'];
+        $data->email = $input['email'];
         $data->is_active = $input['is_active'];
         $data->save();
 
-        return $this->sendResponse(new LokerResource($data), 'Data updated successfully.');
+        return $this->sendResponse(new PerusahaanResource($data), 'Data updated successfully.');
     }
 
     /**
@@ -128,7 +123,7 @@ class LokerController extends ApiController
      */
     public function destroy($id): JsonResponse
     {
-        $data = Loker::find($id);
+        $data = Perusahaan::find($id);
 
         if($data) {
             $data->delete();
