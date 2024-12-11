@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jenis_sampah', function (Blueprint $table) {
+        Schema::create('lokers', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis');
+            $table->foreignIdFor(\App\Models\Perusahaan::class,'id_perusahaan')->constrained('perusahaan');
+            $table->string('posisi');
+            $table->text('deskripsi');
+            $table->text('kualifikasi');
+            $table->string('lokasi');
+            $table->string('gaji');
+            $table->dateTime('expired');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
@@ -24,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jenis_sampah');
+        Schema::dropIfExists('lokers');
     }
 };

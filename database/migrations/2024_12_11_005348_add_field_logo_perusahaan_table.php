@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('zonasi', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_zona');
-            $table->double('luas')->default(0);
-            $table->text('keterangan')->nullable();
-            $table->double('keterisian')->default(0);
-            $table->timestamps();
+        Schema::table('perusahaan', function (Blueprint $table) {
+        $table->text('logo')->after('is_active')->nullable();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('zonasi');
+        Schema::table('perusahaan', function (Blueprint $table) {
+        $table->text('logo')->after('is_active')->nullable();
+        });
     }
 };

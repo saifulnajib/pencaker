@@ -6,6 +6,7 @@ use Exception;
 use Validator;
 use Illuminate\Http\Request;
 use App\Models\Loker;
+use App\Models\Perusahaan;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
@@ -30,11 +31,6 @@ class LokerController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function option(Request $request): JsonResponse
-    {
-        $data = Loker::select('id', 'jenis as name')->where('is_active', 1)->latest('updated_at')->get();
-        return $this->sendResponse($data, 'Data retrieved successfully.');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -47,7 +43,13 @@ class LokerController extends ApiController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'jenis' => 'required',
+            'id_perusahaan' => 'required',
+            'posisi' => 'required',
+            'deskripsi' => 'required',
+            'kualifikasi' => 'required',
+            'lokasi' => 'required',
+            'gaji' => 'required',
+            'expired' => 'required',
             'is_active' => 'required'
         ]);
 
@@ -89,7 +91,13 @@ class LokerController extends ApiController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'jenis' => 'required',
+            'id_perusahaan' => 'required',
+            'posisi' => 'required',
+            'deskripsi' => 'required',
+            'kualifikasi' => 'required',
+            'lokasi' => 'required',
+            'gaji' => 'required',
+            'expired' => 'required',
             'is_active' => 'required'
         ]);
 
@@ -99,7 +107,13 @@ class LokerController extends ApiController
 
         $data = Loker::find($id);
 
-        $data->jenis = $input['jenis'];
+        $data->id_perusahaan = $input['id_perusahaan'];
+        $data->posisi = $input['posisi'];
+        $data->deskripsi = $input['deskripsi'];
+        $data->kualifikasi = $input['kualifikasi'];
+        $data->lokasi = $input['lokasi'];
+        $data->gaji = $input['gaji'];
+        $data->expired = $input['expired'];
         $data->is_active = $input['is_active'];
         $data->save();
 

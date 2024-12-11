@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori_proklim', function (Blueprint $table) {
+        Schema::create('perusahaan', function (Blueprint $table) {
             $table->id();
-            $table->string('kategori');
+            $table->string('name');
+            $table->text('alamat');
+            $table->string('telp');
+            $table->string('email');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_proklim');
+        Schema::dropIfExists('perusahaan');
     }
 };
