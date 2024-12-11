@@ -44,8 +44,8 @@ use App\Http\Controllers\Api\GroupController;
 use App\Http\Controllers\Api\ModuleController;
 
 use App\Http\Controllers\Api\DashboardController;
-use App\Http\Controllers\Api\LokerController;
 use App\Http\Controllers\Api\PerusahaanController;
+use App\Http\Controllers\Api\LokerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,7 +65,6 @@ Route::get('', function(){
 
 Route::apiResource('loker', LokerController::class);
 Route::apiResource('perusahaan', PerusahaanController::class);
-Route::get('option/perusahaan', [PerusahaanController::class, 'option']);
 
 Route::get('skm', [QuestionController::class, 'survey']);
 Route::post('skm', [QuestionController::class, 'postAnswer']);
