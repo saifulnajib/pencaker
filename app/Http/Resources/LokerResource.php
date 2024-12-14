@@ -28,7 +28,7 @@ class LokerResource extends JsonResource
                 'alamat' => $this->perusahaan->alamat,
                 'telp' => $this->perusahaan->telp,
                 'email' => $this->perusahaan->email,
-                'logo' => $this->perusahaan->logo,
+                'logo' => $this->perusahaan->logo ?? asset('login_asset/images/company.png'),
             ],
             'created_at' =>$this->created_at,
             'updated_at' =>$this->updated_at,
