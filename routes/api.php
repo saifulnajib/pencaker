@@ -54,6 +54,8 @@ use App\Http\Controllers\Api\DisabilitasController;
 use App\Http\Controllers\Api\SektorUsahaController;
 use App\Http\Controllers\Api\KelompokJabatanController;
 use App\Http\Controllers\Api\BesaranUpahController;
+use App\Http\Controllers\Api\KelurahanController;
+use App\Http\Controllers\Api\KecamatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +83,8 @@ Route::get('option/disabilitas', [DisabilitasController::class, 'option']);
 Route::get('option/sektor-usaha', [SektorUsahaController::class, 'option']);
 Route::get('option/kelompok-jabatan', [KelompokJabatanController::class, 'option']);
 Route::get('option/besaran-upah', [BesaranUpahController::class, 'option']);
+Route::get('option/kelurahan', [KelurahanController::class, 'option']);
+Route::get('option/kecamatan', [KecamatanController::class, 'option']);
 
 Route::get('skm', [QuestionController::class, 'survey']);
 Route::post('skm', [QuestionController::class, 'postAnswer']);
