@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('perusahaan', function (Blueprint $table) {
-        $table->text('logo')->after('is_active')->nullable();
+        Schema::create('master_bahasa_asing', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->boolean('is_active')->default(1);
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('perusahaan', function (Blueprint $table) {
-        $table->text('logo')->after('is_active')->nullable();
-        });
+        Schema::dropIfExists('master_bahasa_asing');
     }
 };

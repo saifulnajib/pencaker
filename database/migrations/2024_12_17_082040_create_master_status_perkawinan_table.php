@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lokers', function (Blueprint $table) {
+        Schema::create('master_status_perkawinan', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Perusahaan::class,'id_perusahaan')->constrained('perusahaan');
-            $table->string('posisi');
-            $table->text('deskripsi');
-            $table->text('kualifikasi');
-            $table->string('lokasi');
-            $table->string('gaji');
-            $table->dateTime('expired');
+            $table->string('name');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lokers');
+        Schema::dropIfExists('master_status_perkawinan');
     }
 };

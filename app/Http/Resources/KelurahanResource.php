@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PerusahaanResource extends JsonResource
+class KelurahanResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,15 +14,14 @@ class PerusahaanResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        
         return [
             'id' =>$this->id,
-            'name' => $this->name,
-            'alamat' => $this->alamat,
-            'telp' => $this->telp,
-            'email' => $this->email,
-            'is_active' => $this->is_active,
-            'logo' => $this->logo ?? asset('login_asset/images/company.png'),
+            'id_kecamatan' =>$this->id_kecamatan,
+            'name' =>$this->name,
+            'is_active' =>$this->is_active,
+            'kecamatan' => [
+                'name' => $this->kecamatan->name,
+            ],
             'created_at' =>$this->created_at,
             'updated_at' =>$this->updated_at,
 

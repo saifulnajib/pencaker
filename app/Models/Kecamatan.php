@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class Loker extends Model
+class Kecamatan extends Model
 {
     use HasFactory;
     use LogsActivity;
@@ -18,24 +18,20 @@ class Loker extends Model
         return (new DataGridScope())->apply($query, $this);
     }
 
-    protected $table        = 'lokers';
+    protected $table        = 'master_kecamatan';
     protected $primaryKey   = 'id';
     // protected $keyType      = 'string';
-    // public $incrementing    = false;s
-    protected $fillable = [
-        'id_perusahaan', 'posisi',
-        'deskripsi', 'kualifikasi',
-        'lokasi', 'gaji',
-        'expired','is_active'
+    // public $incrementing    = false;
+    protected $fillable = ['name','is_active'
     ];
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->setDescriptionForEvent(fn(string $eventName) => "{$eventName} Data Kendaraan");
+        ->setDescriptionForEvent(fn(string $eventName) => "{$eventName} Data Kecamatan");
     }
 
-    public function perusahaan(){
-        return $this->belongsTo(Perusahaan::class, 'id_perusahaan', 'id');
+    public function kelurahan(){
+        return $this->hasMany(Kelurahan::class, 'id_kecamatan','id');
     }
 }

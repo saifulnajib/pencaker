@@ -46,6 +46,16 @@ use App\Http\Controllers\Api\ModuleController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PerusahaanController;
 use App\Http\Controllers\Api\LokerController;
+use App\Http\Controllers\Api\AgamaController;
+use App\Http\Controllers\Api\TingkatPendidikanController;
+use App\Http\Controllers\Api\BahasaAsingController;
+use App\Http\Controllers\Api\StatusPerkawinanController;
+use App\Http\Controllers\Api\DisabilitasController;
+use App\Http\Controllers\Api\SektorUsahaController;
+use App\Http\Controllers\Api\KelompokJabatanController;
+use App\Http\Controllers\Api\BesaranUpahController;
+use App\Http\Controllers\Api\KelurahanController;
+use App\Http\Controllers\Api\KecamatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,12 +69,22 @@ use App\Http\Controllers\Api\LokerController;
 */
 
 Route::get('', function(){
-    return response()->json(["status" => true, "message" => "Hello from Pencaker APIv1"], 200);
+    return response()->json(["status" => true, "message" => "Hello from Pencaker APIv1", 'date'    => date('d-F-Y'),'time'=>date('H:i:s')], 200);
 });
 
 
 Route::apiResource('loker', LokerController::class);
 Route::apiResource('perusahaan', PerusahaanController::class);
+Route::get('option/agama', [AgamaController::class, 'option']);
+Route::get('option/tingkat-pendidikan', [TingkatPendidikanController::class, 'option']);
+Route::get('option/bahasa-asing', [BahasaAsingController::class, 'option']);
+Route::get('option/status-perkawinan', [StatusPerkawinanController::class, 'option']);
+Route::get('option/disabilitas', [DisabilitasController::class, 'option']);
+Route::get('option/sektor-usaha', [SektorUsahaController::class, 'option']);
+Route::get('option/kelompok-jabatan', [KelompokJabatanController::class, 'option']);
+Route::get('option/besaran-upah', [BesaranUpahController::class, 'option']);
+Route::get('option/kelurahan', [KelurahanController::class, 'option']);
+Route::get('option/kecamatan', [KecamatanController::class, 'option']);
 
 Route::get('skm', [QuestionController::class, 'survey']);
 Route::post('skm', [QuestionController::class, 'postAnswer']);
