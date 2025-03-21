@@ -22,8 +22,8 @@ class Perusahaan extends Model
     protected $primaryKey   = 'id';
     // protected $keyType      = 'string';
     // public $incrementing    = false;
-    protected $fillable = ['name','alamat','telp','email','is_active','logo'
-    ];
+    protected $fillable = ['nama', 'email', 'telepon', 'alamat', 'is_active', 'logo'];
+
 
     public function getActivitylogOptions(): LogOptions
     {
