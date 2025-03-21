@@ -13,12 +13,8 @@ return new class extends Migration
     {
         Schema::create('master_kelurahan', function (Blueprint $table) {
             $table->id();
-            $table->integer('parent_id');
-            $table->string('kecamatan');
-            $table->string('kelurahan');
-            $table->boolean('is_kelurahan');
+            $table->string('name');
             $table->boolean('is_active')->default(1);
-
             $table->timestamps();
         });
     }
