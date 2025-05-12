@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,45 +12,55 @@ return new class extends Migration
     {
         Schema::create('permohonan_ak1', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Agama::class,'id_agama')->constrained('agama');
-            $table->foreignIdFor(\App\Models\Kelurahan::class,'id_kelurahan')->constrained('kelurahans');
-            $table->foreignIdFor(\App\Models\BesaranUpah::class,'id_besaran_upah')->constrained('master_besaran_upah');
-            $table->foreignIdFor(\App\Models\Disabilitas::class,'id_disabilitas')->constrained('master_disabilitas');
-            $table->foreignIdFor(\App\Models\KelompokJabatan::class,'id_kelompok_jabatan')->constrained('master_kelompok_jabatan');
-            $table->foreignIdFor(\App\Models\SektorUsaha::class,'id_sektor_usaha')->constrained('master_sektor_usaha');
-            $table->foreignIdFor(\App\Models\SektorUsaha::class,'id_status_perkawinan')->constrained('master_sektor_perkawinan');
-            $table->foreignIdFor(\App\Models\SektorUsaha::class,'id_tingkat_pendidikan')->constrained('master_tingkat_pendidikan');
+            $table->foreignId('id_agama')->constrained('agama');
+            $table->foreignId('id_kelurahan')->constrained('kelurahans');
+            $table->foreignId('id_besaran_upah')->constrained('master_besaran_upah');
+            $table->foreignId('id_disabilitas')->nullable()->constrained('master_disabilitas');
+            $table->foreignId('id_kelompok_jabatan')->constrained('master_kelompok_jabatan');
+            $table->foreignId('id_sektor_usaha')->constrained('master_sektor_usaha');
+            $table->foreignId('id_status_perkawinan')->constrained('master_status_perkawinan');
+            $table->foreignId('id_tingkat_pendidikan')->constrained('master_tingkat_pendidikan');
+            
+            // Data Pribadi
             $table->string('nama');
-            $table->string('email');
-            $table->string('nik');
+            $table->string('email')->unique();
+            $table->string('nik')->unique();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->double('tinggi_badan');
-            $table->double('berat_badan');
-            $table->double('jumlah_anak')->default(0);
-            $table->enum('kendaraan', ['Tidak Punya', 'Roda 2','Roda 4']);
-            $table->enum('gender', ['Perempuan','Laki-laki']);
-            $table->enum('tempat_tinggal', ['Sewa','Milik Sendiri','Menumpang Dengan Keluarga']);
+            $table->double('tinggi_badan')->nullable();
+            $table->double('berat_badan')->nullable();
+            $table->integer('jumlah_anak')->default(0);
+            $table->enum('kendaraan', ['Tidak Punya', 'Roda 2', 'Roda 4']);
+            $table->enum('gender', ['Perempuan', 'Laki-laki']);
+            $table->enum('tempat_tinggal', ['Sewa', 'Milik Sendiri', 'Menumpang Dengan Keluarga']);
             $table->string('alamat');
-            $table->string('rt');
-            $table->string('rw');
-            $table->string('kode_pos');
-            $table->string('no_hp');
+            $table->string('rt', 5);
+            $table->string('rw', 5);
+            $table->string('kode_pos', 10);
+            $table->string('no_hp', 15);
+            
+            // Pendidikan & Pekerjaan
             $table->string('institusi_pendidikan');
             $table->string('jurusan')->nullable();
-            $table->string('tahun_lulus');
+            $table->year('tahun_lulus');
             $table->string('nilai');
             $table->string('jabatan_minat');
-            $table->enum('lokasi_kerja', ['Dalam Negeri','Luar Negeri']);
+            $table->enum('lokasi_kerja', ['Dalam Negeri', 'Luar Negeri']);
             $table->string('kota_negara_minat');
             $table->text('keterangan_singkat_pengalaman')->nullable();
-            $table->text('file_foto')->nullable();
-            $table->text('file_ktp')->nullable();
-            $table->text('file_ijazah')->nullable();
-            $table->text('file_transkrip')->nullable();
-            $table->text('file_ak1')->nullable();
             $table->boolean('is_pernah_bekerja')->default(0);
+
+            // Dokumen Pendukung
+            $table->string('file_foto')->nullable();
+            $table->string('file_ktp')->nullable();
+            $table->string('file_ijazah')->nullable();
+            $table->string('file_transkrip')->nullable();
+            $table->string('file_ak1')->nullable();
+
+            // Status
             $table->boolean('is_active')->default(0);
+            $table->boolean('is_verified')->default(0);
+
             $table->timestamps();
         });
     }

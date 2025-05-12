@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('lokers', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Perusahaan::class,'id_perusahaan')->constrained('perusahaan');
+            $table->foreignIdFor(\App\Models\Perusahaan::class, 'id_perusahaan')
+                  ->nullable()
+                  ->constrained('perusahaan')
+                  ->nullOnDelete();
             $table->string('posisi');
             $table->text('deskripsi');
             $table->text('kualifikasi');
             $table->string('lokasi');
             $table->string('gaji');
+            $table->string('gambar');
             $table->dateTime('expired');
             $table->boolean('is_active')->default(1);
             $table->timestamps();

@@ -9,16 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('master_tingkat_pendidikan', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('singkatan');
-            $table->boolean('is_active')->default(1);
-            $table->timestamps();
-        });
-    }
+    public function up()
+{
+    Schema::create('master_tingkat_pendidikan', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('singkatan')->nullable();
+        $table->boolean('is_active')->default(1);
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.
