@@ -39,7 +39,7 @@
                             <td>{{ $loker->deskripsi }}</td>
                             <td>{{ $loker->kualifikasi }}</td>
                             <td>{{ $loker->lokasi }}</td>
-                            <td>Rp. {{ number_format($loker->gaji, 0, ',', '.') }}</td>
+                            <td>{{ $loker->gaji }}</td>
                             <td>
                                 @if($loker->gambar)
                                     <img src="{{ asset('storage/' . $loker->gambar) }}" 

@@ -6,7 +6,7 @@ use App\Models\BesaranUpah;
 use App\Models\Disabilitas;
 use App\Models\KelompokJabatan;
 use App\Models\Kelurahan;
-use App\Models\PermohonanAk1;
+use App\Models\PermohonanAK1;
 use App\Models\SektorUsaha;
 use App\Models\StatusPerkawinan;
 use App\Models\TingkatPendidikan;
@@ -18,7 +18,7 @@ class AK1Controller extends Controller
 {
     public function index(Request $request)
     {
-        $ak1 = PermohonanAk1::all();
+        $ak1 = PermohonanAK1::all();
 
         // Kirim data kosong agar blade tidak error
         return view('admin.ak1.index', compact('ak1'));
@@ -101,7 +101,7 @@ class AK1Controller extends Controller
 
     public function edit($id)
     {
-        $ak1 = PermohonanAk1::findOrFail($id);
+        $ak1 = PermohonanAK1::findOrFail($id);
         $agama = Agama::all();
         $status_perkawinan = StatusPerkawinan::all();
         $tingkat_pendidikan = TingkatPendidikan::all();
@@ -116,7 +116,7 @@ class AK1Controller extends Controller
 
     public function show($id)
     {
-        $ak1 = PermohonanAk1::with([
+        $ak1 = PermohonanAK1::with([
             'agama', 
             'kelurahan', 
             'besaranUpah', 
@@ -132,7 +132,7 @@ class AK1Controller extends Controller
 
     public function update(Request $request, $id)
     {
-        $ak1 = PermohonanAk1::findOrFail($id);
+        $ak1 = PermohonanAK1::findOrFail($id);
 
         if ($request->is_active == 1) {
             $request->merge(['is_active' => true]);
@@ -211,7 +211,7 @@ class AK1Controller extends Controller
 
     public function destroy($id)
     {
-        $ak1 = PermohonanAk1::findOrFail($id);
+        $ak1 = PermohonanAK1::findOrFail($id);
         $files = ['file_foto', 'file_ktp', 'file_ijazah', 'file_transkrip', 'file_ak1'];
         foreach ($files as $file) {
             $old_file = $ak1->$file;
@@ -222,7 +222,7 @@ class AK1Controller extends Controller
             }
         }
 
-        PermohonanAk1::destroy($id);
+        PermohonanAK1::destroy($id);
         return redirect()->route('ak1.index')->with('success', 'Data berhasil dihapus!');
     }
 }
