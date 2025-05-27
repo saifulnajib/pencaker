@@ -56,6 +56,7 @@ use App\Http\Controllers\Api\KelompokJabatanController;
 use App\Http\Controllers\Api\BesaranUpahController;
 use App\Http\Controllers\Api\KelurahanController;
 use App\Http\Controllers\Api\KecamatanController;
+use App\Http\Controllers\Api\PermohonanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,7 @@ Route::get('/', function(){
 
 
 Route::apiResource('loker', LokerController::class);
+Route::apiResource('permohonanak1', PermohonanController::class);
 Route::apiResource('perusahaan', PerusahaanController::class);
 Route::get('option/agama', [AgamaController::class, 'option']);
 Route::get('option/tingkat-pendidikan', [TingkatPendidikanController::class, 'option']);

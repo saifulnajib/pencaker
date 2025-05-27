@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use App\Models\Scopes\DataGridScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +23,11 @@ class PermohonanAK1 extends Model
         'is_pernah_bekerja', 'file_foto', 'file_ktp', 'file_ijazah', 
         'file_transkrip', 'file_ak1', 'is_active', 'is_verified'
     ];
+
+    public function scopeFilter($query)
+    {
+        return (new DataGridScope())->apply($query, $this);
+    }
 
     // Relasi ke tabel master masing-masing
     public function agama()
