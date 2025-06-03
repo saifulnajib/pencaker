@@ -14,4 +14,10 @@ class Kecamatan extends Model
     protected $fillable = ['name', 'is_active'];
 
     public $timestamps = true; // Menggunakan created_at & updated_at
+
+    // Relasi ke kelurahan
+    public function kelurahan()
+    {
+        return $this->hasMany(Kelurahan::class, 'id_kecamatan');
+    }
 }

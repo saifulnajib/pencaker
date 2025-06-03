@@ -76,10 +76,54 @@ class PermohonanController extends ApiController
             'kota_negara_minat' => 'required',
             'keterangan_singkat_pengalaman' => 'required',
             'is_pernah_bekerja' => 'required',
+            'file_foto' => 'required',
+            'file_ktp' => 'required',
+            'file_ijazah' => 'required',
+            'file_transkrip' => 'required',
         ]);
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors(), 422);
+        }
+
+        if($request->hasFile('file_foto')) {
+            $file = $request->file('file_foto');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/ak1', $filename); // storage/app/public
+
+            $input['file_foto'] = 'uploads/ak1/'.$filename;
+        }else{
+            return response()->json(['message' => 'File Pas Foto harus diunggah'], 400);
+        }
+        
+        if($request->hasFile('file_ktp')) {
+            $file = $request->file('file_ktp');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/ak1', $filename); // storage/app/public
+
+            $input['file_ktp'] = 'uploads/ak1/'.$filename;
+        }else{
+            return response()->json(['message' => 'File KTP harus diunggah'], 400);
+        }
+
+        if($request->hasFile('file_ijazah')) {
+            $file = $request->file('file_ijazah');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/ak1', $filename); // storage/app/public
+
+            $input['file_ijazah'] = 'uploads/ak1/'.$filename;
+        }else{
+            return response()->json(['message' => 'File Ijazah harus diunggah'], 400);
+        }
+
+        if($request->hasFile('file_transkrip')) {
+            $file = $request->file('file_transkrip');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/ak1', $filename); // storage/app/public
+
+            $input['file_transkrip'] = 'uploads/ak1/'.$filename;
+        }else{
+            return response()->json(['message' => 'File Transkrip harus diunggah'], 400);
         }
 
         $data = PermohonanAK1::create($input);
