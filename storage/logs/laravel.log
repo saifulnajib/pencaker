@@ -2175,3 +2175,87 @@
 #44 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('/Users/saifulna...')
 #45 {main}
 "} 
+[2025-06-04 04:00:19] local.ERROR: Undefined array key "tinggi_badang" {"exception":"[object] (ErrorException(code: 0): Undefined array key \"tinggi_badang\" at /Users/saifulnajib/Documents/Tanjak/api pencaker/app/Http/Controllers/Api/PermohonanController.php:252)
+[stacktrace]
+#0 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(254): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Undefined array...', '/Users/saifulna...', 252)
+#1 /Users/saifulnajib/Documents/Tanjak/api pencaker/app/Http/Controllers/Api/PermohonanController.php(252): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'Undefined array...', '/Users/saifulna...', 252)
+#2 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): App\\Http\\Controllers\\Api\\PermohonanController->update(Object(Illuminate\\Http\\Request), '1')
+#3 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(43): Illuminate\\Routing\\Controller->callAction('update', Array)
+#4 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Route.php(260): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\Api\\PermohonanController), 'update')
+#5 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Route.php(205): Illuminate\\Routing\\Route->runController()
+#6 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Router.php(799): Illuminate\\Routing\\Route->run()
+#7 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#8 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(50): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#9 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#10 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(159): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#11 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(135): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequest(Object(Illuminate\\Http\\Request), Object(Closure), Array)
+#12 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php(87): Illuminate\\Routing\\Middleware\\ThrottleRequests->handleRequestUsingNamedLimiter(Object(Illuminate\\Http\\Request), Object(Closure), 'api', Object(Closure))
+#13 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Middleware\\ThrottleRequests->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'api')
+#14 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#15 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Router.php(800): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#16 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Router.php(777): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#17 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Router.php(741): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#18 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Routing/Router.php(730): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#19 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(200): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#20 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#21 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#22 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#24 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#25 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(89): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#37 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#38 /Users/saifulnajib/Documents/Tanjak/api pencaker/public/index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#39 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('/Users/saifulna...')
+#40 {main}
+"} 
+[2025-06-04 04:16:57] local.ERROR: Command "s" is ambiguous.
+Did you mean one of these?
+    schema:dump           Dump the given database schema
+    schedule:list         List all scheduled tasks
+    schedule:run          Run the scheduled commands
+    schedule:test         Run a scheduled command
+    schedule:work         Start the schedule worker
+    schedule:interrupt    Interrupt the current schedule run
+    storage:link          Create the symbolic links configured for the application
+    session:table         Create a migration for the session database table
+    serve                 Serve the application on the PHP development server
+    stub:publish          Publish all stubs that are available for customization
+    sanctum:prune-expired Prune tokens expired for more than specified number of hours
+    schedule:clear-cache  Delete the cached mutex files created by scheduler
+    sail:install          Install Laravel Sail's default Docker Compose file
+    sail:add              Add a service to an existing Sail installation
+    sail:publish          Publish the Laravel Sail Docker files. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"s\" is ambiguous.
+Did you mean one of these?
+    schema:dump           Dump the given database schema
+    schedule:list         List all scheduled tasks
+    schedule:run          Run the scheduled commands
+    schedule:test         Run a scheduled command
+    schedule:work         Start the schedule worker
+    schedule:interrupt    Interrupt the current schedule run
+    storage:link          Create the symbolic links configured for the application
+    session:table         Create a migration for the session database table
+    serve                 Serve the application on the PHP development server
+    stub:publish          Publish all stubs that are available for customization
+    sanctum:prune-expired Prune tokens expired for more than specified number of hours
+    schedule:clear-cache  Delete the cached mutex files created by scheduler
+    sail:install          Install Laravel Sail's default Docker Compose file
+    sail:add              Add a service to an existing Sail installation
+    sail:publish          Publish the Laravel Sail Docker files. at /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/symfony/console/Application.php:766)
+[stacktrace]
+#0 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/symfony/console/Application.php(262): Symfony\\Component\\Console\\Application->find('s')
+#1 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/symfony/console/Application.php(174): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /Users/saifulnajib/Documents/Tanjak/api pencaker/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /Users/saifulnajib/Documents/Tanjak/api pencaker/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 {main}
+"} 
