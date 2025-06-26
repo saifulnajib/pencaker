@@ -70,4 +70,9 @@ class PermohonanAK1 extends Model
         return $this->belongsTo(Disabilitas::class, 'id_disabilitas');
     }
 
+    public function pengalamanKerja()
+    {
+        return $this->hasMany(PengalamanKerja::class, 'id_permohonan');
+    }
+
 }

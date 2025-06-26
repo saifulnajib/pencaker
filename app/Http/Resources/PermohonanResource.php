@@ -79,6 +79,16 @@ class PermohonanResource extends JsonResource
                 'id' => $this->tingkatPendidikan->id,
                 'name' => $this->tingkatPendidikan->name,
             ],
+            'pengalamanKerja' =>$this->pengalamanKerja->map(function ($pengalaman) {
+                                    return [
+                                        'id' => $pengalaman->id,
+                                        'nama_perusahaan' => $pengalaman->nama_perusahaan,
+                                        'jabatan' => $pengalaman->jabatan,
+                                        'uraian_tugas' => $pengalaman->uraian_tugas,
+                                        'lama_bekerja' => $pengalaman->lama_bekerja,
+                                        'file' => $pengalaman->file,
+                                    ];
+                                }),
             'is_verified' =>$this->is_verified,
             'is_active' =>$this->is_active,
             'created_at' =>$this->created_at,

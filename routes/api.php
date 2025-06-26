@@ -57,6 +57,9 @@ use App\Http\Controllers\Api\BesaranUpahController;
 use App\Http\Controllers\Api\KelurahanController;
 use App\Http\Controllers\Api\KecamatanController;
 use App\Http\Controllers\Api\PermohonanController;
+use App\Http\Controllers\Api\PemohonBiodataController;
+use App\Http\Controllers\Api\PemohonPekerjaanController;
+use App\Http\Controllers\Api\PemohonPendidikanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,13 +73,18 @@ use App\Http\Controllers\Api\PermohonanController;
 */
 
 Route::get('/', function(){
-    return response()->json(["status" => true, "message" => "Hello from Pencaker APIv1", 'date'    => date('d-F-Y'),'time'=>date('H:i:s')], 200);
+    return response()->json(["status" => true, "message" => "Hello from Pencaker APIv0.1", 'date'    => date('d-F-Y'),'time'=>date('H:i:s')], 200);
 });
 
 
 Route::apiResource('loker', LokerController::class);
 Route::apiResource('permohonanak1', PermohonanController::class);
 Route::apiResource('perusahaan', PerusahaanController::class);
+Route::apiResource('pemohon-pekerjaan', PemohonPekerjaanController::class);
+Route::apiResource('pemohon-biodata', PemohonBiodataController::class);
+Route::apiResource('pemohon-pendidikan', PemohonPendidikanController::class);
+Route::put('pemohon-biodata/update-file/{id}', [PemohonBiodataController::class, 'uploadFile']);
+Route::put('pemohon-pendidikan/update-file/{id}', [PemohonPendidikanController::class, 'uploadFile']);
 Route::get('option/agama', [AgamaController::class, 'option']);
 Route::get('option/tingkat-pendidikan', [TingkatPendidikanController::class, 'option']);
 Route::get('option/bahasa-asing', [BahasaAsingController::class, 'option']);
