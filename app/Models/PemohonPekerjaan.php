@@ -39,4 +39,8 @@ class PemohonPekerjaan extends Model
         return $this->belongsTo(SektorUsaha::class, 'id_sektor_usaha');
     }
 
+    public function pengalaman(){
+        return $this->hasMany(PemohonPengalamanKerja::class, 'nik');
+    }
+
 }

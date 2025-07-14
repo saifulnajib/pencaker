@@ -85,6 +85,11 @@ Route::apiResource('pemohon-biodata', PemohonBiodataController::class);
 Route::apiResource('pemohon-pendidikan', PemohonPendidikanController::class);
 Route::put('pemohon-biodata/update-file/{id}', [PemohonBiodataController::class, 'uploadFile']);
 Route::put('pemohon-pendidikan/update-file/{id}', [PemohonPendidikanController::class, 'uploadFile']);
+Route::get('pemohon-pekerjaan/pengalaman/{nik}', [PemohonPekerjaanController::class, 'pengalaman']);
+Route::post('pemohon-pekerjaan/pengalaman', [PemohonPekerjaanController::class, 'createPengalaman']);
+Route::put('pemohon-pekerjaan/pengalaman/{id}', [PemohonPekerjaanController::class, 'updatePengalaman']);
+Route::delete('pemohon-pekerjaan/pengalaman/{id}', [PemohonPekerjaanController::class, 'destroyPengalaman']);
+
 Route::get('option/agama', [AgamaController::class, 'option']);
 Route::get('option/tingkat-pendidikan', [TingkatPendidikanController::class, 'option']);
 Route::get('option/bahasa-asing', [BahasaAsingController::class, 'option']);

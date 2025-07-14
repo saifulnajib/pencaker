@@ -9,11 +9,14 @@ use Illuminate\Http\Request;
 use App\Models\PermohonanAK1;
 use App\Models\Perusahaan;
 use App\Models\PemohonPekerjaan;
+use App\Models\PemohonPengalamanKerja;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Base\BaseCollection;
 use App\Http\Resources\PemohonPekerjaanResource;
+use App\Http\Resources\PemohonPengalamanKerjaResource;
+                        
 
 class PemohonPekerjaanController extends ApiController
 {
@@ -50,7 +53,7 @@ class PemohonPekerjaanController extends ApiController
             'lokasi_kerja' =>'required',
             'jabatan_minat' =>'required',
             'kota_negara_minat' =>'required',
-            'is_pernah_bekerja' =>'required',
+            'tahun_mulai' =>'required',
             'id_besaran_upah' => 'required',
             'id_kelompok_jabatan' => 'required',
             'id_sektor_usaha' => 'required',
@@ -132,6 +135,100 @@ class PemohonPekerjaanController extends ApiController
     public function destroy($id): JsonResponse
     {
         $data = PemohonPekerjaan::find($id);
+
+        if($data) {
+            $data->delete();
+        } else {
+            return $this->sendError('Unable to delete data. No matching record found');
+        }
+
+        return $this->sendResponse([], 'Data deleted successfully.');
+    }
+
+
+    public function pengalaman(Request $request, $nik): JsonResponse
+    {
+        $perPage = request()->query('size', 10);
+        $data = PemohonPengalamanKerja::where('nik',$nik)->paginate($perPage);
+        return $this->sendResponse(new BaseCollection($data, PemohonPengalamanKerjaResource::class), 'Data retrieved successfully.');
+    }
+
+    public function createPengalaman(Request $request): JsonResponse
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'nik' =>'required',
+            'jabatan' =>'required',
+            'uraian_tugas' =>'required',
+            'tahun_mulai' =>'required|numeric',
+            'tahun_selesai' => 'required|numeric',
+            'lama_bekerja' => 'required|numeric',
+            'nama_perusahaan' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(), 422);
+        }
+
+        if($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/ak1', $filename); // storage/app/public
+
+            $input["file"] = 'uploads/ak1/'.$filename;
+        }
+
+        $data = PemohonPengalamanKerja::create($input);
+
+        return $this->sendResponse(new PemohonPengalamanKerjaResource($data), 'Data created successfully.');
+    }
+
+
+    public function updatePengalaman(Request $request, $id): JsonResponse
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'nik' =>'required',
+            'jabatan' =>'required',
+            'uraian_tugas' =>'required',
+            'tahun_mulai' =>'required|numeric',
+            'tahun_selesai' => 'required|numeric',
+            'lama_bekerja' => 'required|numeric',
+            'nama_perusahaan' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(), 422);
+        }
+
+        $data = PemohonPengalamanKerja::find($id);
+
+        $data->nik = $input['nik'];
+        $data->jabatan = $input['jabatan'];
+        $data->uraian_tugas = $input['uraian_tugas'];
+        $data->tahun_mulai = $input['tahun_mulai'];
+        $data->tahun_selesai = $input['tahun_selesai'];
+        $data->lama_bekerja = $input['lama_bekerja'];
+        $data->nama_perusahaan = $input['nama_perusahaan'];
+
+        if($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/uploads/ak1', $filename); // storage/app/public
+
+            $data->file = 'uploads/ak1/'.$filename;
+        }
+
+        $data->save();
+
+        return $this->sendResponse(new PemohonPengalamanKerjaResource($data), 'Data updated successfully.');
+    }
+
+    public function destroyPengalaman($id): JsonResponse
+    {
+        $data = PemohonPengalamanKerja::find($id);
 
         if($data) {
             $data->delete();

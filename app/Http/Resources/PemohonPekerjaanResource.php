@@ -33,6 +33,15 @@ class PemohonPekerjaanResource extends JsonResource
                 'id' => $this->sektorUsaha->id,
                 'name' => $this->sektorUsaha->name,
             ],
+            'pengalaman' =>$this->pengalaman->map(function ($pengalaman) {
+                                    return [
+                                        'id' => $pengalaman->id,
+                                        'nama_perusahaan' => $pengalaman->nama_perusahaan,
+                                        'jabatan' => $pengalaman->jabatan,
+                                        'uraian_tugas' => $pengalaman->uraian_tugas,
+                                        'lama_bekerja' => $pengalaman->lama_bekerja,
+                                        'file' => $pengalaman->file,
+                                    ]; }),
             'created_at' =>$this->created_at,
             'updated_at' =>$this->updated_at,
 
