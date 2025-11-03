@@ -45,7 +45,7 @@
                 
                 <div class="mb-3">
                     <label for="deskripsi" class="form-label">Deskripsi</label>
-                    <textarea name="deskripsi" id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3" required>{{ old('deskripsi') }}</textarea>
+                    <textarea name="deskripsi" id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror summernote" rows="3" required>{{ old('deskripsi') }}</textarea>
                     @error('deskripsi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -53,7 +53,7 @@
                 
                 <div class="mb-3">
                     <label for="kualifikasi" class="form-label">Kualifikasi</label>
-                    <textarea name="kualifikasi" id="kualifikasi" class="form-control @error('kualifikasi') is-invalid @enderror" rows="3" required>{{ old('kualifikasi') }}</textarea>
+                    <textarea name="kualifikasi" id="kualifikasi" class="form-control @error('kualifikasi') is-invalid @enderror summernote" rows="3" required>{{ old('kualifikasi') }}</textarea>
                     @error('kualifikasi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

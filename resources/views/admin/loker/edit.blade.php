@@ -56,7 +56,7 @@
 
                 <div class="mb-3">
                     <label for="kualifikasi" class="form-label">Kualifikasi</label>
-                    <textarea name="kualifikasi" id="kualifikasi" class="form-control @error('kualifikasi') is-invalid @enderror" rows="3" required>{{ old('kualifikasi', $loker->kualifikasi) }}</textarea>
+                    <textarea name="kualifikasi" id="kualifikasi" class="form-control @error('kualifikasi') is-invalid @enderror summernote" rows="3" required>{{ old('kualifikasi', $loker->kualifikasi) }}</textarea>
                     @error('kualifikasi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -64,7 +64,7 @@
 
                 <div class="mb-3">
                     <label for="lokasi" class="form-label">Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi" class="form-control @error('lokasi') is-invalid @enderror" value="{{ old('lokasi', $loker->lokasi) }}" required>
+                    <input type="text" name="lokasi" id="lokasi" class="form-control @error('lokasi') is-invalid @enderror summernote" value="{{ old('lokasi', $loker->lokasi) }}" required>
                     @error('lokasi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

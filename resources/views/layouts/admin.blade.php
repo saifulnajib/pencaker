@@ -22,6 +22,8 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <!-- Tambahkan Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
 
     @stack('styles')
 <style>
@@ -460,6 +462,11 @@
             var url = $(this).attr('href');
             
             $("#content-area").load(url + " #content-area > *");
+        });
+
+        $('.summernote').summernote({
+             tabsize: 2,
+        height: 200
         });
     });
     </script>
