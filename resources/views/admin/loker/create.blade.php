@@ -69,7 +69,7 @@
                 
                 <div class="mb-3">
                     <label for="gaji" class="form-label">Gaji</label>
-                    <input type="number" name="gaji" id="gaji" class="form-control @error('gaji') is-invalid @enderror" value="{{ old('gaji') }}" required>
+                    <input type="text" name="gaji" id="gaji" class="form-control @error('gaji') is-invalid @enderror" value="{{ old('gaji') }}" required>
                     @error('gaji')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

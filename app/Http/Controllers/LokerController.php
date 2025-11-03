@@ -33,7 +33,7 @@ class LokerController extends Controller
         'deskripsi' => 'required|string',
         'kualifikasi' => 'required|string',
         'lokasi' => 'required|string',
-        'gaji' => 'required|integer',
+        'gaji' => 'required',
         'expired' => 'required|date',
         'gambar' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048'
     ]);
@@ -65,7 +65,7 @@ class LokerController extends Controller
         'deskripsi' => 'required|string',
         'kualifikasi' => 'required|string',
         'lokasi' => 'required|string',
-        'gaji' => 'required|integer',
+        'gaji' => 'required',
         'expired' => 'required|date',
         'gambar' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048'
     ]);
