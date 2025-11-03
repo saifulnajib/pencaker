@@ -21,6 +21,7 @@ class LokerResource extends JsonResource
             'kualifikasi' =>$this->kualifikasi,
             'lokasi' =>$this->lokasi,
             'gaji' =>$this->gaji,
+            'gambar' =>$this->gambar,
             'expired' =>$this->expired,
             'is_active' =>$this->is_active,
             'perusahaan' => [
