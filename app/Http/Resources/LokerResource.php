@@ -21,7 +21,7 @@ class LokerResource extends JsonResource
             'kualifikasi' =>$this->kualifikasi,
             'lokasi' =>$this->lokasi,
             'gaji' =>$this->gaji,
-            'gambar' =>$this->gambar,
+            'gambar' =>env('APP_URL').'/storage/'.$this->gambar,
             'expired' =>$this->expired,
             'is_active' =>$this->is_active,
             'perusahaan' => [
@@ -29,7 +29,7 @@ class LokerResource extends JsonResource
                 'alamat' => $this->perusahaan->alamat,
                 'telp' => $this->perusahaan->telp,
                 'email' => $this->perusahaan->email,
-                'logo' => $this->perusahaan->logo ?? asset('login_asset/images/company.png'),
+                'logo' => isset($this->perusahaan->logo) ? env('APP_URL').'/storage/'.$this->gaji : asset('login_asset/images/company.png'),
             ],
             'created_at' =>$this->created_at,
             'updated_at' =>$this->updated_at,
