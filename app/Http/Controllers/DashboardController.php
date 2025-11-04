@@ -33,4 +33,12 @@ class DashboardController extends Controller
         ]);
         
     }
+
+    public function landing(){
+        $data["name"]   = "PENCAKER";
+        $data["deskripsi"]   = "Aplikasi internal yang digunakan oleh admin untuk memverifikasi data pencari kerja, menambahkan dan mengelola informasi lowongan kerja, serta memproses dan menerbitkan permohonan AK1 (Kartu Kuning). Mendukung proses administrasi ketenagakerjaan agar lebih cepat, terstruktur, dan tepat sasaran";
+        $data["copyright"]   = "Pemerintah Kota Tanjungpinang";
+        $data["tahun"]   = "2025";
+        return view('landing',$data);
+    }
 }

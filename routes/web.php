@@ -20,6 +20,7 @@ use App\Http\Controllers\BesaranUpahController;
 use App\Http\Controllers\AK1Controller;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'landing']);
 
 
 // =========================

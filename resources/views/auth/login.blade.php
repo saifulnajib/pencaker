@@ -71,13 +71,13 @@
                 <!-- <div class="text-center mt-2">
                     <a href="#" class="text-decoration-none">Forgot Password?</a>
                 </div> -->
-                <div class="text-center mt-3">
+                <!-- <div class="text-center mt-3">
                     <p>Belum punya akun? <a href="{{ route('register') }}" class="text-success">Daftar di sini</a></p>
-                </div>
+                </div> -->
             </form>
         </div>
         <div class="login-image">
-            <img src="/images/log.jfif" alt="User Image">
+            <img src="{{asset('login_asset/images/fair.png')}}" alt="User Image">
         </div>
     </div>
 </body>
